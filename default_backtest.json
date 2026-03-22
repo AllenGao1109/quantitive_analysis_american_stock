@@ -1,0 +1,1960 @@
+{
+  "test_start": "2021-01-01",
+  "generated_at": "2026-03-22T17:44:44.249792",
+  "summary": {
+    "LogReg": {
+      "sharpe": 1.968,
+      "nav": 2.25,
+      "alpha_cum": 27.5,
+      "max_dd": -4.11,
+      "calmar": 4.048,
+      "in_market": 52.4,
+      "bh_sharpe": 0.732,
+      "bh_nav": 1.65
+    },
+    "ElasticNet": {
+      "sharpe": 2.245,
+      "nav": 2.56,
+      "alpha_cum": 41.0,
+      "max_dd": -4.11,
+      "calmar": 4.772,
+      "in_market": 60.3,
+      "bh_sharpe": 0.732,
+      "bh_nav": 1.65
+    },
+    "EnsembleW": {
+      "sharpe": 2.156,
+      "nav": 2.48,
+      "alpha_cum": 37.5,
+      "max_dd": -4.11,
+      "calmar": 4.585,
+      "in_market": 55.6,
+      "bh_sharpe": 0.732,
+      "bh_nav": 1.65
+    }
+  },
+  "year_by_year": {
+    "LogReg": {
+      "2021": 20.32,
+      "2022": 18.62,
+      "2023": 15.87,
+      "2024": 19.2,
+      "2025": 12.65,
+      "2026": -3.63
+    },
+    "ElasticNet": {
+      "2021": 20.32,
+      "2022": 18.62,
+      "2023": 21.13,
+      "2024": 23.12,
+      "2025": 16.96,
+      "2026": -3.63
+    },
+    "EnsembleW": {
+      "2021": 20.32,
+      "2022": 18.62,
+      "2023": 22.0,
+      "2024": 23.12,
+      "2025": 12.65,
+      "2026": -3.63
+    }
+  },
+  "monthly_pnl": {
+    "LogReg": [
+      {
+        "date": "2021-01",
+        "strategy_pnl": 0.0,
+        "bh_pnl": 0.3672,
+        "alpha_pnl": -0.3672,
+        "pos_start": 0.0,
+        "pos_end": 0.0,
+        "logit": -1.8342,
+        "signal": "SELL"
+      },
+      {
+        "date": "2021-02",
+        "strategy_pnl": 0.0,
+        "bh_pnl": 0.9881,
+        "alpha_pnl": -0.9881,
+        "pos_start": 0.0,
+        "pos_end": 0.0,
+        "logit": 0.1936,
+        "signal": "SELL"
+      },
+      {
+        "date": "2021-03",
+        "strategy_pnl": 1.6405,
+        "bh_pnl": 1.8215,
+        "alpha_pnl": -0.181,
+        "pos_start": 0.0,
+        "pos_end": 1.0,
+        "logit": 2.0692,
+        "signal": "BUY"
+      },
+      {
+        "date": "2021-04",
+        "strategy_pnl": 4.1448,
+        "bh_pnl": 4.0126,
+        "alpha_pnl": 0.1322,
+        "pos_start": 1.0,
+        "pos_end": 1.0,
+        "logit": 1.5141,
+        "signal": "BUY"
+      },
+      {
+        "date": "2021-05",
+        "strategy_pnl": 0.2936,
+        "bh_pnl": 0.2731,
+        "alpha_pnl": 0.0205,
+        "pos_start": 1.0,
+        "pos_end": 1.0,
+        "logit": 1.0313,
+        "signal": "BUY"
+      },
+      {
+        "date": "2021-06",
+        "strategy_pnl": 2.6811,
+        "bh_pnl": 2.2718,
+        "alpha_pnl": 0.4093,
+        "pos_start": 1.0,
+        "pos_end": 1.0,
+        "logit": 1.2111,
+        "signal": "BUY"
+      },
+      {
+        "date": "2021-07",
+        "strategy_pnl": 1.9898,
+        "bh_pnl": 1.7435,
+        "alpha_pnl": 0.2463,
+        "pos_start": 1.0,
+        "pos_end": 1.0,
+        "logit": 1.51,
+        "signal": "BUY"
+      },
+      {
+        "date": "2021-08",
+        "strategy_pnl": 3.1878,
+        "bh_pnl": 3.089,
+        "alpha_pnl": 0.0988,
+        "pos_start": 1.0,
+        "pos_end": 1.0,
+        "logit": 1.2862,
+        "signal": "BUY"
+      },
+      {
+        "date": "2021-09",
+        "strategy_pnl": -1.4201,
+        "bh_pnl": -4.7866,
+        "alpha_pnl": 3.3665,
+        "pos_start": 1.0,
+        "pos_end": 0.0,
+        "logit": -2.4059,
+        "signal": "SELL"
+      },
+      {
+        "date": "2021-10",
+        "strategy_pnl": 4.2835,
+        "bh_pnl": 5.6997,
+        "alpha_pnl": -1.4162,
+        "pos_start": 0.0,
+        "pos_end": 1.0,
+        "logit": 3.3629,
+        "signal": "BUY"
+      },
+      {
+        "date": "2021-11",
+        "strategy_pnl": 1.2753,
+        "bh_pnl": -1.0116,
+        "alpha_pnl": 2.2869,
+        "pos_start": 1.0,
+        "pos_end": 0.0,
+        "logit": -0.7899,
+        "signal": "SELL"
+      },
+      {
+        "date": "2021-12",
+        "strategy_pnl": 2.2449,
+        "bh_pnl": 5.6091,
+        "alpha_pnl": -3.3642,
+        "pos_start": 0.0,
+        "pos_end": 1.0,
+        "logit": 2.5026,
+        "signal": "BUY"
+      },
+      {
+        "date": "2022-01",
+        "strategy_pnl": -3.4387,
+        "bh_pnl": -5.8586,
+        "alpha_pnl": 2.4199,
+        "pos_start": 1.0,
+        "pos_end": 0.0,
+        "logit": -1.3169,
+        "signal": "SELL"
+      },
+      {
+        "date": "2022-02",
+        "strategy_pnl": -0.0,
+        "bh_pnl": -3.7963,
+        "alpha_pnl": 3.7963,
+        "pos_start": 0.0,
+        "pos_end": 0.0,
+        "logit": -0.3562,
+        "signal": "SELL"
+      },
+      {
+        "date": "2022-03",
+        "strategy_pnl": 7.3831,
+        "bh_pnl": 5.2052,
+        "alpha_pnl": 2.1779,
+        "pos_start": 0.0,
+        "pos_end": 1.0,
+        "logit": 2.6821,
+        "signal": "BUY"
+      },
+      {
+        "date": "2022-04",
+        "strategy_pnl": -2.8103,
+        "bh_pnl": -9.1056,
+        "alpha_pnl": 6.2953,
+        "pos_start": 1.0,
+        "pos_end": 0.0,
+        "logit": -4.5951,
+        "signal": "SELL"
+      },
+      {
+        "date": "2022-05",
+        "strategy_pnl": 0.0,
+        "bh_pnl": -0.559,
+        "alpha_pnl": 0.559,
+        "pos_start": 0.0,
+        "pos_end": 0.0,
+        "logit": 0.9782,
+        "signal": "VIX-EXIT"
+      },
+      {
+        "date": "2022-06",
+        "strategy_pnl": 0.0,
+        "bh_pnl": -7.7013,
+        "alpha_pnl": 7.7013,
+        "pos_start": 0.0,
+        "pos_end": 0.0,
+        "logit": -3.5192,
+        "signal": "SELL"
+      },
+      {
+        "date": "2022-07",
+        "strategy_pnl": 6.7254,
+        "bh_pnl": 7.9721,
+        "alpha_pnl": -1.2467,
+        "pos_start": 0.0,
+        "pos_end": 1.0,
+        "logit": 4.2854,
+        "signal": "BUY"
+      },
+      {
+        "date": "2022-08",
+        "strategy_pnl": 3.4325,
+        "bh_pnl": -3.9729,
+        "alpha_pnl": 7.4054,
+        "pos_start": 1.0,
+        "pos_end": 0.0,
+        "logit": -3.4888,
+        "signal": "SELL"
+      },
+      {
+        "date": "2022-09",
+        "strategy_pnl": -0.0,
+        "bh_pnl": -9.6104,
+        "alpha_pnl": 9.6104,
+        "pos_start": 0.0,
+        "pos_end": 0.0,
+        "logit": -4.5951,
+        "signal": "VIX-EXIT"
+      },
+      {
+        "date": "2022-10",
+        "strategy_pnl": 5.5305,
+        "bh_pnl": 5.2618,
+        "alpha_pnl": 0.2687,
+        "pos_start": 0.0,
+        "pos_end": 1.0,
+        "logit": 3.6198,
+        "signal": "BUY"
+      },
+      {
+        "date": "2022-11",
+        "strategy_pnl": 4.8811,
+        "bh_pnl": 5.8092,
+        "alpha_pnl": -0.9281,
+        "pos_start": 1.0,
+        "pos_end": 1.0,
+        "logit": 3.0167,
+        "signal": "BUY"
+      },
+      {
+        "date": "2022-12",
+        "strategy_pnl": -3.087,
+        "bh_pnl": -5.8154,
+        "alpha_pnl": 2.7284,
+        "pos_start": 1.0,
+        "pos_end": 0.0,
+        "logit": -1.3146,
+        "signal": "SELL"
+      },
+      {
+        "date": "2023-01",
+        "strategy_pnl": 3.4884,
+        "bh_pnl": 6.6017,
+        "alpha_pnl": -3.1133,
+        "pos_start": 0.0,
+        "pos_end": 1.0,
+        "logit": 2.9489,
+        "signal": "BUY"
+      },
+      {
+        "date": "2023-02",
+        "strategy_pnl": 0.0284,
+        "bh_pnl": -3.6187,
+        "alpha_pnl": 3.6471,
+        "pos_start": 1.0,
+        "pos_end": 0.0,
+        "logit": -1.8623,
+        "signal": "SELL"
+      },
+      {
+        "date": "2023-03",
+        "strategy_pnl": 5.0937,
+        "bh_pnl": 3.9966,
+        "alpha_pnl": 1.0971,
+        "pos_start": 0.0,
+        "pos_end": 1.0,
+        "logit": 1.3703,
+        "signal": "BUY"
+      },
+      {
+        "date": "2023-04",
+        "strategy_pnl": 0.5917,
+        "bh_pnl": 1.0903,
+        "alpha_pnl": -0.4986,
+        "pos_start": 1.0,
+        "pos_end": 0.0,
+        "logit": 0.4259,
+        "signal": "SELL"
+      },
+      {
+        "date": "2023-05",
+        "strategy_pnl": 0.0,
+        "bh_pnl": 0.287,
+        "alpha_pnl": -0.287,
+        "pos_start": 0.0,
+        "pos_end": 0.0,
+        "logit": 0.4177,
+        "signal": "SELL"
+      },
+      {
+        "date": "2023-06",
+        "strategy_pnl": 1.2346,
+        "bh_pnl": 5.4338,
+        "alpha_pnl": -4.1992,
+        "pos_start": 0.0,
+        "pos_end": 1.0,
+        "logit": 2.1312,
+        "signal": "BUY"
+      },
+      {
+        "date": "2023-07",
+        "strategy_pnl": 2.4502,
+        "bh_pnl": 2.9933,
+        "alpha_pnl": -0.5431,
+        "pos_start": 1.0,
+        "pos_end": 1.0,
+        "logit": 0.8918,
+        "signal": "BUY"
+      },
+      {
+        "date": "2023-08",
+        "strategy_pnl": -2.7044,
+        "bh_pnl": -1.5092,
+        "alpha_pnl": -1.1952,
+        "pos_start": 1.0,
+        "pos_end": 0.0,
+        "logit": 0.0283,
+        "signal": "SELL"
+      },
+      {
+        "date": "2023-09",
+        "strategy_pnl": -0.0,
+        "bh_pnl": -5.0428,
+        "alpha_pnl": 5.0428,
+        "pos_start": 0.0,
+        "pos_end": 0.0,
+        "logit": -3.1131,
+        "signal": "SELL"
+      },
+      {
+        "date": "2023-10",
+        "strategy_pnl": 0.0,
+        "bh_pnl": -2.2057,
+        "alpha_pnl": 2.2057,
+        "pos_start": 0.0,
+        "pos_end": 0.0,
+        "logit": -1.8752,
+        "signal": "SELL"
+      },
+      {
+        "date": "2023-11",
+        "strategy_pnl": 2.3278,
+        "bh_pnl": 7.7855,
+        "alpha_pnl": -5.4577,
+        "pos_start": 0.0,
+        "pos_end": 1.0,
+        "logit": 2.9811,
+        "signal": "BUY"
+      },
+      {
+        "date": "2023-12",
+        "strategy_pnl": 3.3632,
+        "bh_pnl": 3.8131,
+        "alpha_pnl": -0.4499,
+        "pos_start": 1.0,
+        "pos_end": 1.0,
+        "logit": 1.8657,
+        "signal": "BUY"
+      },
+      {
+        "date": "2024-01",
+        "strategy_pnl": 3.4838,
+        "bh_pnl": 2.1679,
+        "alpha_pnl": 1.3159,
+        "pos_start": 1.0,
+        "pos_end": 1.0,
+        "logit": 0.8027,
+        "signal": "BUY"
+      },
+      {
+        "date": "2024-02",
+        "strategy_pnl": 4.0823,
+        "bh_pnl": 3.8743,
+        "alpha_pnl": 0.208,
+        "pos_start": 1.0,
+        "pos_end": 1.0,
+        "logit": 2.2745,
+        "signal": "BUY"
+      },
+      {
+        "date": "2024-03",
+        "strategy_pnl": 1.9619,
+        "bh_pnl": 2.2828,
+        "alpha_pnl": -0.3209,
+        "pos_start": 1.0,
+        "pos_end": 1.0,
+        "logit": 2.0271,
+        "signal": "BUY"
+      },
+      {
+        "date": "2024-04",
+        "strategy_pnl": -2.3743,
+        "bh_pnl": -3.9681,
+        "alpha_pnl": 1.5938,
+        "pos_start": 1.0,
+        "pos_end": 0.0,
+        "logit": -1.0184,
+        "signal": "SELL"
+      },
+      {
+        "date": "2024-05",
+        "strategy_pnl": 0.242,
+        "bh_pnl": 5.1634,
+        "alpha_pnl": -4.9214,
+        "pos_start": 0.0,
+        "pos_end": 1.0,
+        "logit": 1.0469,
+        "signal": "BUY"
+      },
+      {
+        "date": "2024-06",
+        "strategy_pnl": 3.7376,
+        "bh_pnl": 3.3516,
+        "alpha_pnl": 0.386,
+        "pos_start": 1.0,
+        "pos_end": 1.0,
+        "logit": 1.0878,
+        "signal": "BUY"
+      },
+      {
+        "date": "2024-07",
+        "strategy_pnl": 2.5977,
+        "bh_pnl": 0.8623,
+        "alpha_pnl": 1.7354,
+        "pos_start": 1.0,
+        "pos_end": 0.0,
+        "logit": -0.3968,
+        "signal": "SELL"
+      },
+      {
+        "date": "2024-08",
+        "strategy_pnl": 1.9399,
+        "bh_pnl": 3.7035,
+        "alpha_pnl": -1.7636,
+        "pos_start": 0.0,
+        "pos_end": 1.0,
+        "logit": 1.7429,
+        "signal": "BUY"
+      },
+      {
+        "date": "2024-09",
+        "strategy_pnl": 1.675,
+        "bh_pnl": 4.2241,
+        "alpha_pnl": -2.5491,
+        "pos_start": 1.0,
+        "pos_end": 0.0,
+        "logit": 0.3032,
+        "signal": "SELL"
+      },
+      {
+        "date": "2024-10",
+        "strategy_pnl": 0.0,
+        "bh_pnl": -0.0578,
+        "alpha_pnl": 0.0578,
+        "pos_start": 0.0,
+        "pos_end": 0.0,
+        "logit": -0.8129,
+        "signal": "SELL"
+      },
+      {
+        "date": "2024-11",
+        "strategy_pnl": 1.6084,
+        "bh_pnl": 5.2992,
+        "alpha_pnl": -3.6908,
+        "pos_start": 0.0,
+        "pos_end": 1.0,
+        "logit": 2.7738,
+        "signal": "BUY"
+      },
+      {
+        "date": "2024-12",
+        "strategy_pnl": 0.2496,
+        "bh_pnl": -2.7372,
+        "alpha_pnl": 2.9868,
+        "pos_start": 1.0,
+        "pos_end": 0.0,
+        "logit": -0.5163,
+        "signal": "SELL"
+      },
+      {
+        "date": "2025-01",
+        "strategy_pnl": 1.3572,
+        "bh_pnl": 2.9305,
+        "alpha_pnl": -1.5733,
+        "pos_start": 0.0,
+        "pos_end": 1.0,
+        "logit": 1.795,
+        "signal": "BUY"
+      },
+      {
+        "date": "2025-02",
+        "strategy_pnl": 1.9436,
+        "bh_pnl": -0.6684,
+        "alpha_pnl": 2.612,
+        "pos_start": 1.0,
+        "pos_end": 0.0,
+        "logit": -1.7032,
+        "signal": "SELL"
+      },
+      {
+        "date": "2025-03",
+        "strategy_pnl": 0.0,
+        "bh_pnl": -4.0663,
+        "alpha_pnl": 4.0663,
+        "pos_start": 0.0,
+        "pos_end": 0.0,
+        "logit": -1.0905,
+        "signal": "SELL"
+      },
+      {
+        "date": "2025-04",
+        "strategy_pnl": 0.0,
+        "bh_pnl": -1.1363,
+        "alpha_pnl": 1.1363,
+        "pos_start": 0.0,
+        "pos_end": 0.0,
+        "logit": 2.4515,
+        "signal": "VIX-EXIT"
+      },
+      {
+        "date": "2025-05",
+        "strategy_pnl": 0.5562,
+        "bh_pnl": 5.4879,
+        "alpha_pnl": -4.9317,
+        "pos_start": 0.0,
+        "pos_end": 1.0,
+        "logit": 1.5373,
+        "signal": "BUY"
+      },
+      {
+        "date": "2025-06",
+        "strategy_pnl": 4.4228,
+        "bh_pnl": 4.5319,
+        "alpha_pnl": -0.1091,
+        "pos_start": 1.0,
+        "pos_end": 1.0,
+        "logit": 2.4,
+        "signal": "BUY"
+      },
+      {
+        "date": "2025-07",
+        "strategy_pnl": 1.1071,
+        "bh_pnl": 2.2811,
+        "alpha_pnl": -1.174,
+        "pos_start": 1.0,
+        "pos_end": 0.0,
+        "logit": 0.3527,
+        "signal": "SELL"
+      },
+      {
+        "date": "2025-08",
+        "strategy_pnl": 0.0,
+        "bh_pnl": 3.5628,
+        "alpha_pnl": -3.5628,
+        "pos_start": 0.0,
+        "pos_end": 0.0,
+        "logit": 0.6984,
+        "signal": "HOLD"
+      },
+      {
+        "date": "2025-09",
+        "strategy_pnl": 1.4431,
+        "bh_pnl": 4.254,
+        "alpha_pnl": -2.8109,
+        "pos_start": 0.0,
+        "pos_end": 1.0,
+        "logit": 0.8206,
+        "signal": "BUY"
+      },
+      {
+        "date": "2025-10",
+        "strategy_pnl": 1.6785,
+        "bh_pnl": 1.9222,
+        "alpha_pnl": -0.2437,
+        "pos_start": 1.0,
+        "pos_end": 1.0,
+        "logit": 1.8214,
+        "signal": "BUY"
+      },
+      {
+        "date": "2025-11",
+        "strategy_pnl": -0.3511,
+        "bh_pnl": -0.042,
+        "alpha_pnl": -0.3091,
+        "pos_start": 1.0,
+        "pos_end": 1.0,
+        "logit": 0.6663,
+        "signal": "HOLD"
+      },
+      {
+        "date": "2025-12",
+        "strategy_pnl": 0.4953,
+        "bh_pnl": 0.4825,
+        "alpha_pnl": 0.0128,
+        "pos_start": 1.0,
+        "pos_end": 0.0,
+        "logit": 0.2396,
+        "signal": "SELL"
+      },
+      {
+        "date": "2026-01",
+        "strategy_pnl": 0.5241,
+        "bh_pnl": 1.1746,
+        "alpha_pnl": -0.6505,
+        "pos_start": 0.0,
+        "pos_end": 1.0,
+        "logit": 0.8932,
+        "signal": "BUY"
+      },
+      {
+        "date": "2026-02",
+        "strategy_pnl": -1.5032,
+        "bh_pnl": -1.3984,
+        "alpha_pnl": -0.1048,
+        "pos_start": 1.0,
+        "pos_end": 1.0,
+        "logit": 0.7917,
+        "signal": "HOLD"
+      },
+      {
+        "date": "2026-03",
+        "strategy_pnl": -2.6506,
+        "bh_pnl": -5.4513,
+        "alpha_pnl": 2.8007,
+        "pos_start": 1.0,
+        "pos_end": 0.0,
+        "logit": -3.1213,
+        "signal": "VIX-EXIT"
+      }
+    ],
+    "ElasticNet": [
+      {
+        "date": "2021-01",
+        "strategy_pnl": 0.0,
+        "bh_pnl": 0.3672,
+        "alpha_pnl": -0.3672,
+        "pos_start": 0.0,
+        "pos_end": 0.0,
+        "logit": -4.084,
+        "signal": "SELL"
+      },
+      {
+        "date": "2021-02",
+        "strategy_pnl": 0.0,
+        "bh_pnl": 0.9881,
+        "alpha_pnl": -0.9881,
+        "pos_start": 0.0,
+        "pos_end": 0.0,
+        "logit": -0.7716,
+        "signal": "SELL"
+      },
+      {
+        "date": "2021-03",
+        "strategy_pnl": 1.6405,
+        "bh_pnl": 1.8215,
+        "alpha_pnl": -0.181,
+        "pos_start": 0.0,
+        "pos_end": 1.0,
+        "logit": 4.2689,
+        "signal": "BUY"
+      },
+      {
+        "date": "2021-04",
+        "strategy_pnl": 4.1448,
+        "bh_pnl": 4.0126,
+        "alpha_pnl": 0.1322,
+        "pos_start": 1.0,
+        "pos_end": 1.0,
+        "logit": 2.9025,
+        "signal": "BUY"
+      },
+      {
+        "date": "2021-05",
+        "strategy_pnl": 0.2936,
+        "bh_pnl": 0.2731,
+        "alpha_pnl": 0.0205,
+        "pos_start": 1.0,
+        "pos_end": 1.0,
+        "logit": 3.52,
+        "signal": "BUY"
+      },
+      {
+        "date": "2021-06",
+        "strategy_pnl": 2.6811,
+        "bh_pnl": 2.2718,
+        "alpha_pnl": 0.4093,
+        "pos_start": 1.0,
+        "pos_end": 1.0,
+        "logit": 2.5307,
+        "signal": "BUY"
+      },
+      {
+        "date": "2021-07",
+        "strategy_pnl": 1.9898,
+        "bh_pnl": 1.7435,
+        "alpha_pnl": 0.2463,
+        "pos_start": 1.0,
+        "pos_end": 1.0,
+        "logit": 3.3955,
+        "signal": "BUY"
+      },
+      {
+        "date": "2021-08",
+        "strategy_pnl": 3.1878,
+        "bh_pnl": 3.089,
+        "alpha_pnl": 0.0988,
+        "pos_start": 1.0,
+        "pos_end": 1.0,
+        "logit": 2.8121,
+        "signal": "BUY"
+      },
+      {
+        "date": "2021-09",
+        "strategy_pnl": -1.4201,
+        "bh_pnl": -4.7866,
+        "alpha_pnl": 3.3665,
+        "pos_start": 1.0,
+        "pos_end": 0.0,
+        "logit": -3.82,
+        "signal": "SELL"
+      },
+      {
+        "date": "2021-10",
+        "strategy_pnl": 4.2835,
+        "bh_pnl": 5.6997,
+        "alpha_pnl": -1.4162,
+        "pos_start": 0.0,
+        "pos_end": 1.0,
+        "logit": 4.5951,
+        "signal": "BUY"
+      },
+      {
+        "date": "2021-11",
+        "strategy_pnl": 1.2753,
+        "bh_pnl": -1.0116,
+        "alpha_pnl": 2.2869,
+        "pos_start": 1.0,
+        "pos_end": 0.0,
+        "logit": -2.276,
+        "signal": "SELL"
+      },
+      {
+        "date": "2021-12",
+        "strategy_pnl": 2.2449,
+        "bh_pnl": 5.6091,
+        "alpha_pnl": -3.3642,
+        "pos_start": 0.0,
+        "pos_end": 1.0,
+        "logit": 4.281,
+        "signal": "BUY"
+      },
+      {
+        "date": "2022-01",
+        "strategy_pnl": -3.4387,
+        "bh_pnl": -5.8586,
+        "alpha_pnl": 2.4199,
+        "pos_start": 1.0,
+        "pos_end": 0.0,
+        "logit": -2.3295,
+        "signal": "SELL"
+      },
+      {
+        "date": "2022-02",
+        "strategy_pnl": -0.0,
+        "bh_pnl": -3.7963,
+        "alpha_pnl": 3.7963,
+        "pos_start": 0.0,
+        "pos_end": 0.0,
+        "logit": -1.8575,
+        "signal": "SELL"
+      },
+      {
+        "date": "2022-03",
+        "strategy_pnl": 7.3831,
+        "bh_pnl": 5.2052,
+        "alpha_pnl": 2.1779,
+        "pos_start": 0.0,
+        "pos_end": 1.0,
+        "logit": 4.5951,
+        "signal": "BUY"
+      },
+      {
+        "date": "2022-04",
+        "strategy_pnl": -2.8103,
+        "bh_pnl": -9.1056,
+        "alpha_pnl": 6.2953,
+        "pos_start": 1.0,
+        "pos_end": 0.0,
+        "logit": -4.5951,
+        "signal": "SELL"
+      },
+      {
+        "date": "2022-05",
+        "strategy_pnl": 0.0,
+        "bh_pnl": -0.559,
+        "alpha_pnl": 0.559,
+        "pos_start": 0.0,
+        "pos_end": 0.0,
+        "logit": 2.8291,
+        "signal": "VIX-EXIT"
+      },
+      {
+        "date": "2022-06",
+        "strategy_pnl": 0.0,
+        "bh_pnl": -7.7013,
+        "alpha_pnl": 7.7013,
+        "pos_start": 0.0,
+        "pos_end": 0.0,
+        "logit": -4.5951,
+        "signal": "SELL"
+      },
+      {
+        "date": "2022-07",
+        "strategy_pnl": 6.7254,
+        "bh_pnl": 7.9721,
+        "alpha_pnl": -1.2467,
+        "pos_start": 0.0,
+        "pos_end": 1.0,
+        "logit": 4.5951,
+        "signal": "BUY"
+      },
+      {
+        "date": "2022-08",
+        "strategy_pnl": 3.4325,
+        "bh_pnl": -3.9729,
+        "alpha_pnl": 7.4054,
+        "pos_start": 1.0,
+        "pos_end": 0.0,
+        "logit": -4.5951,
+        "signal": "SELL"
+      },
+      {
+        "date": "2022-09",
+        "strategy_pnl": -0.0,
+        "bh_pnl": -9.6104,
+        "alpha_pnl": 9.6104,
+        "pos_start": 0.0,
+        "pos_end": 0.0,
+        "logit": -4.5951,
+        "signal": "VIX-EXIT"
+      },
+      {
+        "date": "2022-10",
+        "strategy_pnl": 5.5305,
+        "bh_pnl": 5.2618,
+        "alpha_pnl": 0.2687,
+        "pos_start": 0.0,
+        "pos_end": 1.0,
+        "logit": 4.5951,
+        "signal": "BUY"
+      },
+      {
+        "date": "2022-11",
+        "strategy_pnl": 4.8811,
+        "bh_pnl": 5.8092,
+        "alpha_pnl": -0.9281,
+        "pos_start": 1.0,
+        "pos_end": 1.0,
+        "logit": 4.5951,
+        "signal": "BUY"
+      },
+      {
+        "date": "2022-12",
+        "strategy_pnl": -3.087,
+        "bh_pnl": -5.8154,
+        "alpha_pnl": 2.7284,
+        "pos_start": 1.0,
+        "pos_end": 0.0,
+        "logit": -2.3772,
+        "signal": "SELL"
+      },
+      {
+        "date": "2023-01",
+        "strategy_pnl": 3.4884,
+        "bh_pnl": 6.6017,
+        "alpha_pnl": -3.1133,
+        "pos_start": 0.0,
+        "pos_end": 1.0,
+        "logit": 4.5951,
+        "signal": "BUY"
+      },
+      {
+        "date": "2023-02",
+        "strategy_pnl": 0.0284,
+        "bh_pnl": -3.6187,
+        "alpha_pnl": 3.6471,
+        "pos_start": 1.0,
+        "pos_end": 0.0,
+        "logit": -4.5951,
+        "signal": "SELL"
+      },
+      {
+        "date": "2023-03",
+        "strategy_pnl": 5.0937,
+        "bh_pnl": 3.9966,
+        "alpha_pnl": 1.0971,
+        "pos_start": 0.0,
+        "pos_end": 1.0,
+        "logit": 4.1684,
+        "signal": "BUY"
+      },
+      {
+        "date": "2023-04",
+        "strategy_pnl": 0.5714,
+        "bh_pnl": 1.0903,
+        "alpha_pnl": -0.5189,
+        "pos_start": 1.0,
+        "pos_end": 1.0,
+        "logit": 1.2106,
+        "signal": "BUY"
+      },
+      {
+        "date": "2023-05",
+        "strategy_pnl": 1.3252,
+        "bh_pnl": 0.287,
+        "alpha_pnl": 1.0382,
+        "pos_start": 1.0,
+        "pos_end": 1.0,
+        "logit": 2.1538,
+        "signal": "BUY"
+      },
+      {
+        "date": "2023-06",
+        "strategy_pnl": 5.0766,
+        "bh_pnl": 5.4338,
+        "alpha_pnl": -0.3572,
+        "pos_start": 1.0,
+        "pos_end": 1.0,
+        "logit": 3.1855,
+        "signal": "BUY"
+      },
+      {
+        "date": "2023-07",
+        "strategy_pnl": 2.4502,
+        "bh_pnl": 2.9933,
+        "alpha_pnl": -0.5431,
+        "pos_start": 1.0,
+        "pos_end": 1.0,
+        "logit": 2.3504,
+        "signal": "BUY"
+      },
+      {
+        "date": "2023-08",
+        "strategy_pnl": -1.4508,
+        "bh_pnl": -1.5092,
+        "alpha_pnl": 0.0584,
+        "pos_start": 1.0,
+        "pos_end": 1.0,
+        "logit": 1.3746,
+        "signal": "BUY"
+      },
+      {
+        "date": "2023-09",
+        "strategy_pnl": -1.1449,
+        "bh_pnl": -5.0428,
+        "alpha_pnl": 3.8979,
+        "pos_start": 1.0,
+        "pos_end": 0.0,
+        "logit": -4.5951,
+        "signal": "SELL"
+      },
+      {
+        "date": "2023-10",
+        "strategy_pnl": 0.0,
+        "bh_pnl": -2.2057,
+        "alpha_pnl": 2.2057,
+        "pos_start": 0.0,
+        "pos_end": 0.0,
+        "logit": -4.0233,
+        "signal": "SELL"
+      },
+      {
+        "date": "2023-11",
+        "strategy_pnl": 2.3278,
+        "bh_pnl": 7.7855,
+        "alpha_pnl": -5.4577,
+        "pos_start": 0.0,
+        "pos_end": 1.0,
+        "logit": 4.5951,
+        "signal": "BUY"
+      },
+      {
+        "date": "2023-12",
+        "strategy_pnl": 3.3632,
+        "bh_pnl": 3.8131,
+        "alpha_pnl": -0.4499,
+        "pos_start": 1.0,
+        "pos_end": 1.0,
+        "logit": 2.8385,
+        "signal": "BUY"
+      },
+      {
+        "date": "2024-01",
+        "strategy_pnl": 3.4838,
+        "bh_pnl": 2.1679,
+        "alpha_pnl": 1.3159,
+        "pos_start": 1.0,
+        "pos_end": 1.0,
+        "logit": 2.0396,
+        "signal": "BUY"
+      },
+      {
+        "date": "2024-02",
+        "strategy_pnl": 4.0823,
+        "bh_pnl": 3.8743,
+        "alpha_pnl": 0.208,
+        "pos_start": 1.0,
+        "pos_end": 1.0,
+        "logit": 4.4548,
+        "signal": "BUY"
+      },
+      {
+        "date": "2024-03",
+        "strategy_pnl": 1.9619,
+        "bh_pnl": 2.2828,
+        "alpha_pnl": -0.3209,
+        "pos_start": 1.0,
+        "pos_end": 1.0,
+        "logit": 4.2878,
+        "signal": "BUY"
+      },
+      {
+        "date": "2024-04",
+        "strategy_pnl": -2.3743,
+        "bh_pnl": -3.9681,
+        "alpha_pnl": 1.5938,
+        "pos_start": 1.0,
+        "pos_end": 0.0,
+        "logit": -1.36,
+        "signal": "SELL"
+      },
+      {
+        "date": "2024-05",
+        "strategy_pnl": 0.242,
+        "bh_pnl": 5.1634,
+        "alpha_pnl": -4.9214,
+        "pos_start": 0.0,
+        "pos_end": 1.0,
+        "logit": 1.8991,
+        "signal": "BUY"
+      },
+      {
+        "date": "2024-06",
+        "strategy_pnl": 3.7376,
+        "bh_pnl": 3.3516,
+        "alpha_pnl": 0.386,
+        "pos_start": 1.0,
+        "pos_end": 1.0,
+        "logit": 1.4587,
+        "signal": "BUY"
+      },
+      {
+        "date": "2024-07",
+        "strategy_pnl": 2.5977,
+        "bh_pnl": 0.8623,
+        "alpha_pnl": 1.7354,
+        "pos_start": 1.0,
+        "pos_end": 0.0,
+        "logit": -0.3615,
+        "signal": "SELL"
+      },
+      {
+        "date": "2024-08",
+        "strategy_pnl": 1.9399,
+        "bh_pnl": 3.7035,
+        "alpha_pnl": -1.7636,
+        "pos_start": 0.0,
+        "pos_end": 1.0,
+        "logit": 3.4821,
+        "signal": "BUY"
+      },
+      {
+        "date": "2024-09",
+        "strategy_pnl": 3.5996,
+        "bh_pnl": 4.2241,
+        "alpha_pnl": -0.6245,
+        "pos_start": 1.0,
+        "pos_end": 1.0,
+        "logit": 2.5249,
+        "signal": "BUY"
+      },
+      {
+        "date": "2024-10",
+        "strategy_pnl": 1.9931,
+        "bh_pnl": -0.0578,
+        "alpha_pnl": 2.0509,
+        "pos_start": 1.0,
+        "pos_end": 0.0,
+        "logit": -2.5303,
+        "signal": "SELL"
+      },
+      {
+        "date": "2024-11",
+        "strategy_pnl": 1.6084,
+        "bh_pnl": 5.2992,
+        "alpha_pnl": -3.6908,
+        "pos_start": 0.0,
+        "pos_end": 1.0,
+        "logit": 4.5951,
+        "signal": "BUY"
+      },
+      {
+        "date": "2024-12",
+        "strategy_pnl": 0.2496,
+        "bh_pnl": -2.7372,
+        "alpha_pnl": 2.9868,
+        "pos_start": 1.0,
+        "pos_end": 0.0,
+        "logit": -2.4827,
+        "signal": "SELL"
+      },
+      {
+        "date": "2025-01",
+        "strategy_pnl": 1.3572,
+        "bh_pnl": 2.9305,
+        "alpha_pnl": -1.5733,
+        "pos_start": 0.0,
+        "pos_end": 1.0,
+        "logit": 3.0048,
+        "signal": "BUY"
+      },
+      {
+        "date": "2025-02",
+        "strategy_pnl": 1.9436,
+        "bh_pnl": -0.6684,
+        "alpha_pnl": 2.612,
+        "pos_start": 1.0,
+        "pos_end": 0.0,
+        "logit": -4.2625,
+        "signal": "SELL"
+      },
+      {
+        "date": "2025-03",
+        "strategy_pnl": 0.0,
+        "bh_pnl": -4.0663,
+        "alpha_pnl": 4.0663,
+        "pos_start": 0.0,
+        "pos_end": 0.0,
+        "logit": -2.071,
+        "signal": "SELL"
+      },
+      {
+        "date": "2025-04",
+        "strategy_pnl": 0.0,
+        "bh_pnl": -1.1363,
+        "alpha_pnl": 1.1363,
+        "pos_start": 0.0,
+        "pos_end": 0.0,
+        "logit": 4.5951,
+        "signal": "VIX-EXIT"
+      },
+      {
+        "date": "2025-05",
+        "strategy_pnl": 0.5562,
+        "bh_pnl": 5.4879,
+        "alpha_pnl": -4.9317,
+        "pos_start": 0.0,
+        "pos_end": 1.0,
+        "logit": 2.2509,
+        "signal": "BUY"
+      },
+      {
+        "date": "2025-06",
+        "strategy_pnl": 4.4228,
+        "bh_pnl": 4.5319,
+        "alpha_pnl": -0.1091,
+        "pos_start": 1.0,
+        "pos_end": 1.0,
+        "logit": 4.5951,
+        "signal": "BUY"
+      },
+      {
+        "date": "2025-07",
+        "strategy_pnl": 1.9199,
+        "bh_pnl": 2.2811,
+        "alpha_pnl": -0.3612,
+        "pos_start": 1.0,
+        "pos_end": 1.0,
+        "logit": 0.8061,
+        "signal": "HOLD"
+      },
+      {
+        "date": "2025-08",
+        "strategy_pnl": 3.494,
+        "bh_pnl": 3.5628,
+        "alpha_pnl": -0.0688,
+        "pos_start": 1.0,
+        "pos_end": 0.0,
+        "logit": 0.4873,
+        "signal": "SELL"
+      },
+      {
+        "date": "2025-09",
+        "strategy_pnl": 1.4431,
+        "bh_pnl": 4.254,
+        "alpha_pnl": -2.8109,
+        "pos_start": 0.0,
+        "pos_end": 1.0,
+        "logit": 2.0197,
+        "signal": "BUY"
+      },
+      {
+        "date": "2025-10",
+        "strategy_pnl": 1.6785,
+        "bh_pnl": 1.9222,
+        "alpha_pnl": -0.2437,
+        "pos_start": 1.0,
+        "pos_end": 1.0,
+        "logit": 4.201,
+        "signal": "BUY"
+      },
+      {
+        "date": "2025-11",
+        "strategy_pnl": -0.3511,
+        "bh_pnl": -0.042,
+        "alpha_pnl": -0.3091,
+        "pos_start": 1.0,
+        "pos_end": 1.0,
+        "logit": 2.8425,
+        "signal": "BUY"
+      },
+      {
+        "date": "2025-12",
+        "strategy_pnl": 0.4953,
+        "bh_pnl": 0.4825,
+        "alpha_pnl": 0.0128,
+        "pos_start": 1.0,
+        "pos_end": 0.0,
+        "logit": 0.2702,
+        "signal": "SELL"
+      },
+      {
+        "date": "2026-01",
+        "strategy_pnl": 0.5241,
+        "bh_pnl": 1.1746,
+        "alpha_pnl": -0.6505,
+        "pos_start": 0.0,
+        "pos_end": 1.0,
+        "logit": 2.0521,
+        "signal": "BUY"
+      },
+      {
+        "date": "2026-02",
+        "strategy_pnl": -1.5032,
+        "bh_pnl": -1.3984,
+        "alpha_pnl": -0.1048,
+        "pos_start": 1.0,
+        "pos_end": 1.0,
+        "logit": 1.1848,
+        "signal": "HOLD"
+      },
+      {
+        "date": "2026-03",
+        "strategy_pnl": -2.6506,
+        "bh_pnl": -5.4513,
+        "alpha_pnl": 2.8007,
+        "pos_start": 1.0,
+        "pos_end": 0.0,
+        "logit": -4.5951,
+        "signal": "VIX-EXIT"
+      }
+    ],
+    "EnsembleW": [
+      {
+        "date": "2021-01",
+        "strategy_pnl": 0.0,
+        "bh_pnl": 0.3672,
+        "alpha_pnl": -0.3672,
+        "pos_start": 0.0,
+        "pos_end": 0.0,
+        "logit": -3.1391,
+        "signal": "SELL"
+      },
+      {
+        "date": "2021-02",
+        "strategy_pnl": 0.0,
+        "bh_pnl": 0.9881,
+        "alpha_pnl": -0.9881,
+        "pos_start": 0.0,
+        "pos_end": 0.0,
+        "logit": -0.3662,
+        "signal": "SELL"
+      },
+      {
+        "date": "2021-03",
+        "strategy_pnl": 1.6405,
+        "bh_pnl": 1.8215,
+        "alpha_pnl": -0.181,
+        "pos_start": 0.0,
+        "pos_end": 1.0,
+        "logit": 3.345,
+        "signal": "BUY"
+      },
+      {
+        "date": "2021-04",
+        "strategy_pnl": 4.1448,
+        "bh_pnl": 4.0126,
+        "alpha_pnl": 0.1322,
+        "pos_start": 1.0,
+        "pos_end": 1.0,
+        "logit": 2.3193,
+        "signal": "BUY"
+      },
+      {
+        "date": "2021-05",
+        "strategy_pnl": 0.2936,
+        "bh_pnl": 0.2731,
+        "alpha_pnl": 0.0205,
+        "pos_start": 1.0,
+        "pos_end": 1.0,
+        "logit": 2.4747,
+        "signal": "BUY"
+      },
+      {
+        "date": "2021-06",
+        "strategy_pnl": 2.6811,
+        "bh_pnl": 2.2718,
+        "alpha_pnl": 0.4093,
+        "pos_start": 1.0,
+        "pos_end": 1.0,
+        "logit": 1.9765,
+        "signal": "BUY"
+      },
+      {
+        "date": "2021-07",
+        "strategy_pnl": 1.9898,
+        "bh_pnl": 1.7435,
+        "alpha_pnl": 0.2463,
+        "pos_start": 1.0,
+        "pos_end": 1.0,
+        "logit": 2.6036,
+        "signal": "BUY"
+      },
+      {
+        "date": "2021-08",
+        "strategy_pnl": 3.1878,
+        "bh_pnl": 3.089,
+        "alpha_pnl": 0.0988,
+        "pos_start": 1.0,
+        "pos_end": 1.0,
+        "logit": 2.1712,
+        "signal": "BUY"
+      },
+      {
+        "date": "2021-09",
+        "strategy_pnl": -1.4201,
+        "bh_pnl": -4.7866,
+        "alpha_pnl": 3.3665,
+        "pos_start": 1.0,
+        "pos_end": 0.0,
+        "logit": -3.2261,
+        "signal": "SELL"
+      },
+      {
+        "date": "2021-10",
+        "strategy_pnl": 4.2835,
+        "bh_pnl": 5.6997,
+        "alpha_pnl": -1.4162,
+        "pos_start": 0.0,
+        "pos_end": 1.0,
+        "logit": 4.0776,
+        "signal": "BUY"
+      },
+      {
+        "date": "2021-11",
+        "strategy_pnl": 1.2753,
+        "bh_pnl": -1.0116,
+        "alpha_pnl": 2.2869,
+        "pos_start": 1.0,
+        "pos_end": 0.0,
+        "logit": -1.6518,
+        "signal": "SELL"
+      },
+      {
+        "date": "2021-12",
+        "strategy_pnl": 2.2449,
+        "bh_pnl": 5.6091,
+        "alpha_pnl": -3.3642,
+        "pos_start": 0.0,
+        "pos_end": 1.0,
+        "logit": 3.5341,
+        "signal": "BUY"
+      },
+      {
+        "date": "2022-01",
+        "strategy_pnl": -3.4387,
+        "bh_pnl": -5.8586,
+        "alpha_pnl": 2.4199,
+        "pos_start": 1.0,
+        "pos_end": 0.0,
+        "logit": -1.9042,
+        "signal": "SELL"
+      },
+      {
+        "date": "2022-02",
+        "strategy_pnl": -0.0,
+        "bh_pnl": -3.7963,
+        "alpha_pnl": 3.7963,
+        "pos_start": 0.0,
+        "pos_end": 0.0,
+        "logit": -1.227,
+        "signal": "SELL"
+      },
+      {
+        "date": "2022-03",
+        "strategy_pnl": 7.3831,
+        "bh_pnl": 5.2052,
+        "alpha_pnl": 2.1779,
+        "pos_start": 0.0,
+        "pos_end": 1.0,
+        "logit": 3.7916,
+        "signal": "BUY"
+      },
+      {
+        "date": "2022-04",
+        "strategy_pnl": -2.8103,
+        "bh_pnl": -9.1056,
+        "alpha_pnl": 6.2953,
+        "pos_start": 1.0,
+        "pos_end": 0.0,
+        "logit": -4.5951,
+        "signal": "SELL"
+      },
+      {
+        "date": "2022-05",
+        "strategy_pnl": 0.0,
+        "bh_pnl": -0.559,
+        "alpha_pnl": 0.559,
+        "pos_start": 0.0,
+        "pos_end": 0.0,
+        "logit": 2.0517,
+        "signal": "VIX-EXIT"
+      },
+      {
+        "date": "2022-06",
+        "strategy_pnl": 0.0,
+        "bh_pnl": -7.7013,
+        "alpha_pnl": 7.7013,
+        "pos_start": 0.0,
+        "pos_end": 0.0,
+        "logit": -4.1432,
+        "signal": "SELL"
+      },
+      {
+        "date": "2022-07",
+        "strategy_pnl": 6.7254,
+        "bh_pnl": 7.9721,
+        "alpha_pnl": -1.2467,
+        "pos_start": 0.0,
+        "pos_end": 1.0,
+        "logit": 4.465,
+        "signal": "BUY"
+      },
+      {
+        "date": "2022-08",
+        "strategy_pnl": 3.4325,
+        "bh_pnl": -3.9729,
+        "alpha_pnl": 7.4054,
+        "pos_start": 1.0,
+        "pos_end": 0.0,
+        "logit": -4.1304,
+        "signal": "SELL"
+      },
+      {
+        "date": "2022-09",
+        "strategy_pnl": -0.0,
+        "bh_pnl": -9.6104,
+        "alpha_pnl": 9.6104,
+        "pos_start": 0.0,
+        "pos_end": 0.0,
+        "logit": -4.5951,
+        "signal": "VIX-EXIT"
+      },
+      {
+        "date": "2022-10",
+        "strategy_pnl": 5.5305,
+        "bh_pnl": 5.2618,
+        "alpha_pnl": 0.2687,
+        "pos_start": 0.0,
+        "pos_end": 1.0,
+        "logit": 4.1855,
+        "signal": "BUY"
+      },
+      {
+        "date": "2022-11",
+        "strategy_pnl": 4.8811,
+        "bh_pnl": 5.8092,
+        "alpha_pnl": -0.9281,
+        "pos_start": 1.0,
+        "pos_end": 1.0,
+        "logit": 3.9322,
+        "signal": "BUY"
+      },
+      {
+        "date": "2022-12",
+        "strategy_pnl": -3.087,
+        "bh_pnl": -5.8154,
+        "alpha_pnl": 2.7284,
+        "pos_start": 1.0,
+        "pos_end": 0.0,
+        "logit": -1.9309,
+        "signal": "SELL"
+      },
+      {
+        "date": "2023-01",
+        "strategy_pnl": 3.4884,
+        "bh_pnl": 6.6017,
+        "alpha_pnl": -3.1133,
+        "pos_start": 0.0,
+        "pos_end": 1.0,
+        "logit": 3.9037,
+        "signal": "BUY"
+      },
+      {
+        "date": "2023-02",
+        "strategy_pnl": 0.0284,
+        "bh_pnl": -3.6187,
+        "alpha_pnl": 3.6471,
+        "pos_start": 1.0,
+        "pos_end": 0.0,
+        "logit": -3.4473,
+        "signal": "SELL"
+      },
+      {
+        "date": "2023-03",
+        "strategy_pnl": 5.0937,
+        "bh_pnl": 3.9966,
+        "alpha_pnl": 1.0971,
+        "pos_start": 0.0,
+        "pos_end": 1.0,
+        "logit": 2.9932,
+        "signal": "BUY"
+      },
+      {
+        "date": "2023-04",
+        "strategy_pnl": 0.5917,
+        "bh_pnl": 1.0903,
+        "alpha_pnl": -0.4986,
+        "pos_start": 1.0,
+        "pos_end": 0.0,
+        "logit": 0.881,
+        "signal": "SELL"
+      },
+      {
+        "date": "2023-05",
+        "strategy_pnl": 2.2889,
+        "bh_pnl": 0.287,
+        "alpha_pnl": 2.0019,
+        "pos_start": 0.0,
+        "pos_end": 1.0,
+        "logit": 1.4246,
+        "signal": "BUY"
+      },
+      {
+        "date": "2023-06",
+        "strategy_pnl": 5.0766,
+        "bh_pnl": 5.4338,
+        "alpha_pnl": -0.3572,
+        "pos_start": 1.0,
+        "pos_end": 1.0,
+        "logit": 2.7427,
+        "signal": "BUY"
+      },
+      {
+        "date": "2023-07",
+        "strategy_pnl": 2.4502,
+        "bh_pnl": 2.9933,
+        "alpha_pnl": -0.5431,
+        "pos_start": 1.0,
+        "pos_end": 1.0,
+        "logit": 1.7378,
+        "signal": "BUY"
+      },
+      {
+        "date": "2023-08",
+        "strategy_pnl": -2.7044,
+        "bh_pnl": -1.5092,
+        "alpha_pnl": -1.1952,
+        "pos_start": 1.0,
+        "pos_end": 0.0,
+        "logit": 0.8091,
+        "signal": "SELL"
+      },
+      {
+        "date": "2023-09",
+        "strategy_pnl": -0.0,
+        "bh_pnl": -5.0428,
+        "alpha_pnl": 5.0428,
+        "pos_start": 0.0,
+        "pos_end": 0.0,
+        "logit": -3.9727,
+        "signal": "SELL"
+      },
+      {
+        "date": "2023-10",
+        "strategy_pnl": 0.0,
+        "bh_pnl": -2.2057,
+        "alpha_pnl": 2.2057,
+        "pos_start": 0.0,
+        "pos_end": 0.0,
+        "logit": -3.1211,
+        "signal": "SELL"
+      },
+      {
+        "date": "2023-11",
+        "strategy_pnl": 2.3278,
+        "bh_pnl": 7.7855,
+        "alpha_pnl": -5.4577,
+        "pos_start": 0.0,
+        "pos_end": 1.0,
+        "logit": 3.9172,
+        "signal": "BUY"
+      },
+      {
+        "date": "2023-12",
+        "strategy_pnl": 3.3632,
+        "bh_pnl": 3.8131,
+        "alpha_pnl": -0.4499,
+        "pos_start": 1.0,
+        "pos_end": 1.0,
+        "logit": 2.4299,
+        "signal": "BUY"
+      },
+      {
+        "date": "2024-01",
+        "strategy_pnl": 3.4838,
+        "bh_pnl": 2.1679,
+        "alpha_pnl": 1.3159,
+        "pos_start": 1.0,
+        "pos_end": 1.0,
+        "logit": 1.5201,
+        "signal": "BUY"
+      },
+      {
+        "date": "2024-02",
+        "strategy_pnl": 4.0823,
+        "bh_pnl": 3.8743,
+        "alpha_pnl": 0.208,
+        "pos_start": 1.0,
+        "pos_end": 1.0,
+        "logit": 3.5391,
+        "signal": "BUY"
+      },
+      {
+        "date": "2024-03",
+        "strategy_pnl": 1.9619,
+        "bh_pnl": 2.2828,
+        "alpha_pnl": -0.3209,
+        "pos_start": 1.0,
+        "pos_end": 1.0,
+        "logit": 3.3383,
+        "signal": "BUY"
+      },
+      {
+        "date": "2024-04",
+        "strategy_pnl": -2.3743,
+        "bh_pnl": -3.9681,
+        "alpha_pnl": 1.5938,
+        "pos_start": 1.0,
+        "pos_end": 0.0,
+        "logit": -1.2165,
+        "signal": "SELL"
+      },
+      {
+        "date": "2024-05",
+        "strategy_pnl": 0.242,
+        "bh_pnl": 5.1634,
+        "alpha_pnl": -4.9214,
+        "pos_start": 0.0,
+        "pos_end": 1.0,
+        "logit": 1.5412,
+        "signal": "BUY"
+      },
+      {
+        "date": "2024-06",
+        "strategy_pnl": 3.7376,
+        "bh_pnl": 3.3516,
+        "alpha_pnl": 0.386,
+        "pos_start": 1.0,
+        "pos_end": 1.0,
+        "logit": 1.3029,
+        "signal": "BUY"
+      },
+      {
+        "date": "2024-07",
+        "strategy_pnl": 2.5977,
+        "bh_pnl": 0.8623,
+        "alpha_pnl": 1.7354,
+        "pos_start": 1.0,
+        "pos_end": 0.0,
+        "logit": -0.3763,
+        "signal": "SELL"
+      },
+      {
+        "date": "2024-08",
+        "strategy_pnl": 1.9399,
+        "bh_pnl": 3.7035,
+        "alpha_pnl": -1.7636,
+        "pos_start": 0.0,
+        "pos_end": 1.0,
+        "logit": 2.7517,
+        "signal": "BUY"
+      },
+      {
+        "date": "2024-09",
+        "strategy_pnl": 3.5996,
+        "bh_pnl": 4.2241,
+        "alpha_pnl": -0.6245,
+        "pos_start": 1.0,
+        "pos_end": 1.0,
+        "logit": 1.5918,
+        "signal": "BUY"
+      },
+      {
+        "date": "2024-10",
+        "strategy_pnl": 1.9931,
+        "bh_pnl": -0.0578,
+        "alpha_pnl": 2.0509,
+        "pos_start": 1.0,
+        "pos_end": 0.0,
+        "logit": -1.809,
+        "signal": "SELL"
+      },
+      {
+        "date": "2024-11",
+        "strategy_pnl": 1.6084,
+        "bh_pnl": 5.2992,
+        "alpha_pnl": -3.6908,
+        "pos_start": 0.0,
+        "pos_end": 1.0,
+        "logit": 3.8302,
+        "signal": "BUY"
+      },
+      {
+        "date": "2024-12",
+        "strategy_pnl": 0.2496,
+        "bh_pnl": -2.7372,
+        "alpha_pnl": 2.9868,
+        "pos_start": 1.0,
+        "pos_end": 0.0,
+        "logit": -1.6568,
+        "signal": "SELL"
+      },
+      {
+        "date": "2025-01",
+        "strategy_pnl": 1.3572,
+        "bh_pnl": 2.9305,
+        "alpha_pnl": -1.5733,
+        "pos_start": 0.0,
+        "pos_end": 1.0,
+        "logit": 2.4967,
+        "signal": "BUY"
+      },
+      {
+        "date": "2025-02",
+        "strategy_pnl": 1.9436,
+        "bh_pnl": -0.6684,
+        "alpha_pnl": 2.612,
+        "pos_start": 1.0,
+        "pos_end": 0.0,
+        "logit": -3.1876,
+        "signal": "SELL"
+      },
+      {
+        "date": "2025-03",
+        "strategy_pnl": 0.0,
+        "bh_pnl": -4.0663,
+        "alpha_pnl": 4.0663,
+        "pos_start": 0.0,
+        "pos_end": 0.0,
+        "logit": -1.6592,
+        "signal": "SELL"
+      },
+      {
+        "date": "2025-04",
+        "strategy_pnl": 0.0,
+        "bh_pnl": -1.1363,
+        "alpha_pnl": 1.1363,
+        "pos_start": 0.0,
+        "pos_end": 0.0,
+        "logit": 3.6948,
+        "signal": "VIX-EXIT"
+      },
+      {
+        "date": "2025-05",
+        "strategy_pnl": 0.5562,
+        "bh_pnl": 5.4879,
+        "alpha_pnl": -4.9317,
+        "pos_start": 0.0,
+        "pos_end": 1.0,
+        "logit": 1.9512,
+        "signal": "BUY"
+      },
+      {
+        "date": "2025-06",
+        "strategy_pnl": 4.4228,
+        "bh_pnl": 4.5319,
+        "alpha_pnl": -0.1091,
+        "pos_start": 1.0,
+        "pos_end": 1.0,
+        "logit": 3.6732,
+        "signal": "BUY"
+      },
+      {
+        "date": "2025-07",
+        "strategy_pnl": 1.1071,
+        "bh_pnl": 2.2811,
+        "alpha_pnl": -1.174,
+        "pos_start": 1.0,
+        "pos_end": 0.0,
+        "logit": 0.6157,
+        "signal": "SELL"
+      },
+      {
+        "date": "2025-08",
+        "strategy_pnl": 0.0,
+        "bh_pnl": 3.5628,
+        "alpha_pnl": -3.5628,
+        "pos_start": 0.0,
+        "pos_end": 0.0,
+        "logit": 0.576,
+        "signal": "SELL"
+      },
+      {
+        "date": "2025-09",
+        "strategy_pnl": 1.4431,
+        "bh_pnl": 4.254,
+        "alpha_pnl": -2.8109,
+        "pos_start": 0.0,
+        "pos_end": 1.0,
+        "logit": 1.5161,
+        "signal": "BUY"
+      },
+      {
+        "date": "2025-10",
+        "strategy_pnl": 1.6785,
+        "bh_pnl": 1.9222,
+        "alpha_pnl": -0.2437,
+        "pos_start": 1.0,
+        "pos_end": 1.0,
+        "logit": 3.2015,
+        "signal": "BUY"
+      },
+      {
+        "date": "2025-11",
+        "strategy_pnl": -0.3511,
+        "bh_pnl": -0.042,
+        "alpha_pnl": -0.3091,
+        "pos_start": 1.0,
+        "pos_end": 1.0,
+        "logit": 1.9285,
+        "signal": "BUY"
+      },
+      {
+        "date": "2025-12",
+        "strategy_pnl": 0.4953,
+        "bh_pnl": 0.4825,
+        "alpha_pnl": 0.0128,
+        "pos_start": 1.0,
+        "pos_end": 0.0,
+        "logit": 0.2573,
+        "signal": "SELL"
+      },
+      {
+        "date": "2026-01",
+        "strategy_pnl": 0.5241,
+        "bh_pnl": 1.1746,
+        "alpha_pnl": -0.6505,
+        "pos_start": 0.0,
+        "pos_end": 1.0,
+        "logit": 1.5654,
+        "signal": "BUY"
+      },
+      {
+        "date": "2026-02",
+        "strategy_pnl": -1.5032,
+        "bh_pnl": -1.3984,
+        "alpha_pnl": -0.1048,
+        "pos_start": 1.0,
+        "pos_end": 1.0,
+        "logit": 1.0197,
+        "signal": "HOLD"
+      },
+      {
+        "date": "2026-03",
+        "strategy_pnl": -2.6506,
+        "bh_pnl": -5.4513,
+        "alpha_pnl": 2.8007,
+        "pos_start": 1.0,
+        "pos_end": 0.0,
+        "logit": -3.9761,
+        "signal": "VIX-EXIT"
+      }
+    ]
+  }
+}

@@ -1,0 +1,6 @@
+data_start:  "1990-01-01"    
+train_start: "1990-01-01"    
+train_end:   "2020-12-31"  
+test_start:  "2021-01-01"    
+
+notes: "V9.1 ElasticNet+LogReg+EnsembleW strategy"

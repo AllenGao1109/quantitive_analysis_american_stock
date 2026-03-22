@@ -1,0 +1,71 @@
+<!-- templates/index.html -->
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>SPX Mid-Month Strategy (V9.1)</title>
+  <style>
+    body { font-family: -apple-system, BlinkMacSystemFont, system-ui, sans-serif; margin: 20px; }
+    table { border-collapse: collapse; margin-top: 10px; }
+    th, td { border: 1px solid #ddd; padding: 6px 8px; font-size: 13px; }
+    th { background: #f5f5f5; }
+  </style>
+</head>
+<body>
+  <h1>SPX Mid-Month Strategy (V9.1)</h1>
+
+  <div id="live"></div>
+  <div id="bt"></div>
+
+  <script>
+    async function loadLive() {
+      const res = await fetch("/api/live");
+      const d   = await res.json();
+      const m   = d.models;
+      const rows = ["LogReg","ElasticNet","EnsembleW"].map(name => {
+        const x = m[name];
+        return `<tr>
+          <td>${name}</td>
+          <td>${x.logit.toFixed(3)}</td>
+          <td>${(x.prob_up*100).toFixed(1)}%</td>
+          <td>${x.signal}</td>
+          <td>${x.position}</td>
+        </tr>`;
+      }).join("");
+      document.getElementById("live").innerHTML = `
+        <h2>当前月信号 (${d.signal_month})</h2>
+        <p>VIX 月均: ${d.vix_month_avg} ｜ spike: ${d.vix_spike}</p>
+        <table>
+          <tr><th>Model</th><th>Logit</th><th>P(up)</th><th>Signal</th><th>Pos</th></tr>
+          ${rows}
+        </table>`;
+    }
+
+    async function loadBT() {
+      const res = await fetch("/api/backtest");
+      const d   = await res.json();
+      const s   = d.summary;
+      const rows = ["LogReg","ElasticNet","EnsembleW"].map(name => {
+        const x = s[name];
+        return `<tr>
+          <td>${name}</td>
+          <td>${x.sharpe.toFixed(3)}</td>
+          <td>${x.nav.toFixed(2)}</td>
+          <td>${x.alpha_cum.toFixed(1)}%</td>
+          <td>${x.max_dd.toFixed(2)}%</td>
+          <td>${x.calmar.toFixed(2)}</td>
+        </tr>`;
+      }).join("");
+      document.getElementById("bt").innerHTML = `
+        <h2>回测 (${d.test_start} → latest)</h2>
+        <table>
+          <tr><th>Model</th><th>Sharpe</th><th>NAV</th><th>Alpha</th><th>MaxDD</th><th>Calmar</th></tr>
+          ${rows}
+        </table>`;
+    }
+
+    loadLive();
+    loadBT();
+  </script>
+</body>
+</html>

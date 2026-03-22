@@ -1,0 +1,5 @@
+streamlit
+pandas
+pyyaml
+scikit-learn
+numpy<2.0

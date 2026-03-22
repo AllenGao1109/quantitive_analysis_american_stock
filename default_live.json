@@ -1,0 +1,32 @@
+{
+  "generated_at": "2026-03-22T17:44:39.862016",
+  "signal_month": "2026-03",
+  "vix_month_avg": 24.51,
+  "vix_spike": true,
+  "models": {
+    "LogReg": {
+      "logit": -3.0998,
+      "prob_up": 0.0431,
+      "signal": "VIX-EXIT",
+      "position": 0.0,
+      "cutoff": 0.8,
+      "short_thr": 0.6
+    },
+    "ElasticNet": {
+      "logit": -4.5951,
+      "prob_up": 0.01,
+      "signal": "VIX-EXIT",
+      "position": 0.0,
+      "cutoff": 1.2,
+      "short_thr": 0.8
+    },
+    "EnsembleW": {
+      "logit": -3.9671,
+      "prob_up": 0.0186,
+      "signal": "VIX-EXIT",
+      "position": 0.0,
+      "cutoff": 1.1,
+      "short_thr": 0.9
+    }
+  }
+}
