@@ -1,5 +1,7 @@
 streamlit
 pandas
 pyyaml
-scikit-learn
+yfinance
 numpy<2.0
+scikit-learn
+pandas_datareader
