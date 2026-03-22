@@ -5,3 +5,7 @@ yfinance
 numpy<2.0
 scikit-learn
 pandas_datareader
+scipy
+numexpr
+bottleneck
+ta

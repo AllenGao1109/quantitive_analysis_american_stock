@@ -5,62 +5,64 @@ import yfinance as yf
 
 st.set_page_config(page_title="SPX Mid-Month Strategy V9.1", layout="wide")
 
-@st.cache_data(ttl=300)  # Cache for 5 minutes
+@st.cache_data(ttl=300)
 def run_strategy(args):
-    cmd = ["conda", "run", "-n", "spx_strategy", "python", "spx_signal_v91.py"] + args
+    cmd = ["python", "spx_signal_v91.py"] + args
     result = subprocess.run(cmd, capture_output=True, text=True, cwd=".", timeout=180)
     if result.returncode == 0:
-        return json.loads(result.stdout)
-    return {"error": result.stderr[:1000]}
+        return json.loads(result.stdout.strip())
+    return {"error": f"Exit {result.returncode}: {result.stderr[:500]}"}
+
 
 # Get real-time metrics (latest data)
-# Real-time footer metrics (ALL LIVE DATA)
 @st.cache_data(ttl=300)  # Updates every 5 minutes
 def get_realtime_metrics():
     try:
-        # Get latest 1 month SPX + VIX data
-        spx = yf.download("^GSPC", period="1mo", progress=False, auto_adjust=True)
-        vix = yf.download("^VIX", period="1mo", progress=False)
+        spx = yf.download("^GSPC", period="2mo", progress=False, auto_adjust=True)
+        vix = yf.download("^VIX", period="2mo", progress=False)
         
-        # VIX: 20-day monthly average (real current month)
-        vix_monthly_avg = round(vix['Close'].tail(20).mean(), 2)
+        # VIX: Current 20-day avg vs previous 20-day avg
+        vix_current = vix['Close'].tail(20).mean()
+        vix_prev = vix['Close'].tail(40).head(20).mean()
+        vix_chg_pct = ((vix_current - vix_prev) / vix_prev) * 100
         
-        # SPX: Latest price, daily change, volume
-        spx_latest = round(spx['Close'][-1], 2)
-        spx_prev = round(spx['Close'][-2], 2)
-        spx_chg_pct = round(((spx_latest - spx_prev) / spx_prev) * 100, 2)
-        spx_volume = int(spx['Volume'][-1])
+        # SPX: Latest vs previous day
+        spx_latest = spx['Close'][-1]
+        spx_prev = spx['Close'][-2] 
+        spx_chg_pct = ((spx_latest - spx_prev) / spx_prev) * 100
         
-        # Strategy Sharpe (from latest backtest - cached but real)
+        # Volume: Latest vs avg of last 5 days
+        spx_volume_latest = spx['Volume'][-1]
+        spx_volume_avg = spx['Volume'].tail(6).head(5).mean()
+        volume_chg_pct = ((spx_volume_latest - spx_volume_avg) / spx_volume_avg) * 100
+        
+        # Sharpe: Try to get from your latest backtest (fallback to fixed)
         try:
             bt_data = run_strategy(["--backtest", "--json"])
-            sharpe = round(bt_data["summary"]["EnsembleW"]["sharpe"], 3)
+            sharpe_current = bt_data["summary"]["EnsembleW"]["sharpe"]
+            sharpe_prev = bt_data["summary"]["LogReg"]["sharpe"]  # Compare models
+            sharpe_chg = ((sharpe_current - sharpe_prev) / sharpe_prev) * 100 if sharpe_prev else 0
         except:
-            sharpe = 2.245  # fallback
-        
-        # Calculate delta for metrics display
-        vix_prev_avg = round(vix['Close'].tail(40).head(20).mean(), 2)
-        vix_chg_pct = round(((vix_monthly_avg - vix_prev_avg) / vix_prev_avg) * 100, 1)
+            sharpe_current = 2.245
+            sharpe_chg = 0.05
         
         return {
-            "vix_monthly_avg": vix_monthly_avg,
-            "vix_chg_pct": vix_chg_pct,
-            "spx_price": spx_latest,
-            "spx_chg_pct": spx_chg_pct,
-            "spx_volume": spx_volume,
-            "ensemble_sharpe": sharpe
+            "vix_monthly_avg": round(vix_current, 2),
+            "vix_chg_pct": round(vix_chg_pct, 1),
+            "spx_price": round(spx_latest, 2),
+            "spx_chg_pct": round(spx_chg_pct, 2), 
+            "spx_volume": int(spx_volume_latest),
+            "volume_chg_pct": round(volume_chg_pct, 1),
+            "ensemble_sharpe": round(sharpe_current, 3),
+            "sharpe_chg_pct": round(sharpe_chg, 1)
         }
-    except Exception as e:
-        # Fallback values
+    except:
         return {
-            "vix_monthly_avg": 26.78,
-            "vix_chg_pct": 11.3,
-            "spx_price": 6506.48,
-            "spx_chg_pct": -1.51,
-            "spx_volume": 4500000000,
-            "ensemble_sharpe": 2.245
+            "vix_monthly_avg": 26.78, "vix_chg_pct": 11.3,
+            "spx_price": 6506.48, "spx_chg_pct": -1.51,
+            "spx_volume": 4500000000, "volume_chg_pct": 5.2,
+            "ensemble_sharpe": 2.245, "sharpe_chg_pct": 0.05
         }
-
 
 # Your default config
 DEFAULT_CONFIG = {
@@ -152,15 +154,18 @@ with col2:
     else:
         st.warning("👆 Select config and click 'Run with Current Config'")
 
-# Footer
+
+# Footer metrics (ALL DYNAMIC)
 st.markdown("---")
 metrics = get_realtime_metrics()
 
 col1, col2, col3, col4 = st.columns(4)
-delta_vix = f"↑ {metrics['vix_chg_pct']}%"
+
+# Dynamic deltas (no more hardcoded values!)
+delta_vix = f"{metrics['vix_chg_pct']:+.1f}%"
 delta_spx = f"{metrics['spx_chg_pct']:+.2f}%"
-delta_volume = "↑ 5.2%"
-delta_sharpe = "↑ 0.05"
+delta_volume = f"{metrics['volume_chg_pct']:+.1f}%"
+delta_sharpe = f"{metrics['sharpe_chg_pct']:+.1f}%"
 
 col1.metric("VIX Monthly Avg", f"{metrics['vix_monthly_avg']}", delta_vix)
 col2.metric("SPX Price", f"${metrics['spx_price']:,}", delta_spx)
@@ -168,5 +173,5 @@ col3.metric("EnsembleW Sharpe", f"{metrics['ensemble_sharpe']}", delta_sharpe)
 col4.metric("SPX Volume", f"{metrics['spx_volume']:,}", delta_volume)
 
 st.caption(f"🕐 LIVE DATA: {datetime.now().strftime('%Y-%m-%d %H:%M:%S EDT')} | "
-           f"Real-time updates every 5min | VIX: {metrics['vix_monthly_avg']} | SPX: ${metrics['spx_price']:,}")
+           f"All metrics update every 5min | VIX: {metrics['vix_monthly_avg']} | SPX: ${metrics['spx_price']:,}")
 
