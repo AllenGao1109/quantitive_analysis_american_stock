@@ -87,7 +87,6 @@ def get_realtime_metrics():
     end = datetime.today()
     data_start = end - timedelta(days=90)
 
-    # 初始化（默认 NaN）
     vix_current = float("nan")
     vix_chg_pct = float("nan")
     spx_latest = float("nan")
