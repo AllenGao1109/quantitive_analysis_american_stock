@@ -1,0 +1,10 @@
+Model,Variant,Sharpe,NAV,MaxDD%
+Ensemble_v92,LS,3.642,4.895,-0.71
+Ensemble_v92,LO,2.847,2.76,-0.55
+LogReg_v92,LS,3.319,4.38,-1.11
+LogReg_v92,LO,2.74,2.619,-0.77
+ElasticNet_v92,LS,3.388,2.843,-0.73
+ElasticNet_v92,LO,2.71,1.921,-0.18
+MLP_v92,LS,2.977,2.817,-0.74
+MLP_v92,LO,2.666,2.609,-1.19
+BuyHold SPX,—,0.619,1.731,-12.71

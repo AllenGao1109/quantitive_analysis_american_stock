@@ -1,293 +1,303 @@
+# streamlit_app.py  —  V9.4 SoftRisk edition
+# Direct imports from spx_signal_v94: no subprocess, instant cache-based scoring.
 import streamlit as st
-import subprocess, json, os, yaml, pandas as pd
+import json, os, yaml
+import pandas as pd
+import numpy as np
 from datetime import datetime, timedelta
-import yfinance as yf
-from zoneinfo import ZoneInfo  
+from zoneinfo import ZoneInfo
 import pandas_datareader as pdr
 
+# ── Direct imports (eliminates subprocess overhead) ───────────────────────────
+from spx_signal_v94 import (
+    fetch_data, build_monthly, load_config,
+    load_model_cache, train_and_cache_models, score_from_cache, cache_info,
+    run_live_signal, run_backtest, load_pnl_history,
+    decide, FEATURES, MODELS_CFG, ENSEMBLE_WEIGHTS,
+    ENSEMBLE_CUTOFF, ENSEMBLE_SHORT_THR, SEASONAL_RULES,
+    VIX_SPIKE_THRESH, _CACHE_PATH, SOFTRISK_CFG,
+)
 
+# ══════════════════════════════════════════════════════════════════════════════
+# Helpers
+# ══════════════════════════════════════════════════════════════════════════════
 def get_edt_time():
-    edt = ZoneInfo("America/New_York")
-    return datetime.now(edt).strftime('%Y-%m-%d %H:%M:%S EDT')
+    return datetime.now(ZoneInfo("America/New_York")).strftime('%Y-%m-%d %H:%M:%S EDT')
 
 
+DEFAULT_CONFIG = {
+    "data_start":  "1990-01-01",
+    "train_start": "1990-01-01",
+    "train_end":   "2020-12-31",
+    "test_start":  "2021-01-01",
+    "notes":       "V9.4 SoftRisk strategy",
+}
 
-def models_json_to_df(data: dict) -> pd.DataFrame:
-    models = data.get("models", {})
+MODE_LABELS = {
+    "soft_risk_lo": "🛡️ SoftRisk Long-Only (V9.4)",
+    "soft_risk_ls": "⚡ SoftRisk Long-Short (V9.4)",
+    "binary":       "🔵 Binary {0,1} (V9.1)",
+}
 
-    rows = []
-    for model_name, info in models.items():
-        rows.append({
-            "Model": model_name,
-            "Logit": info.get("logit"),
-            "P(up)": info.get("prob_up"),
-            "Signal": info.get("signal"),
-            "Position": info.get("position"),
-            "Short Thr": info.get("short_thr"),
-            "Signal Month": data.get("signal_month"),
-            "VIX Spike": data.get("vix_spike"),
-        })
-
-    df = pd.DataFrame(rows)
-
-    preferred_cols = [
-        "Model", "Logit", "P(up)", "Signal",
-        "Position", "Short Thr",
-        "Signal Month", "VIX Spike"
-    ]
-    df = df[[c for c in preferred_cols if c in df.columns]]
-
-    return df
+st.set_page_config(page_title="SPX Mid-Month V9.4", layout="wide")
 
 
-def summary_to_df(df_raw: pd.DataFrame) -> pd.DataFrame:
-    rows = []
-
-    for idx, row in df_raw.iterrows():
-        model_name = idx 
-
-        summary = row["summary"]
-
-        if isinstance(summary, str):
-            summary = json.loads(summary)
-
-        rows.append({
-            "Model": model_name,
-            "Alpha (cum)": summary.get("alpha_cum"),
-            "Sharpe": summary.get("bh_sharpe"),
-            "Calmar": summary.get("calmar"),
-            "In Market %": summary.get("in_market"),
-        })
-
-    df = pd.DataFrame(rows)
-
-    df["Alpha (cum)"] = pd.to_numeric(df["Alpha (cum)"], errors="coerce").round(2)
-    df["Sharpe"] = pd.to_numeric(df["Sharpe"], errors="coerce").round(3)
-    df["Calmar"] = pd.to_numeric(df["Calmar"], errors="coerce").round(3)
-    df["In Market %"] = pd.to_numeric(df["In Market %"], errors="coerce").map(
-        lambda x: f"{x:.1f}%" if pd.notnull(x) else ""
-    )
-
-    return df
-
-st.set_page_config(page_title="SPX Mid-Month Strategy V9.1", layout="wide")
-
-@st.cache_data(ttl=300)
-def run_strategy(args):
-    cmd = ["python", "spx_signal_v91.py"] + args
-    result = subprocess.run(cmd, capture_output=True, text=True, cwd=".", timeout=180)
-    if result.returncode == 0:
-        return json.loads(result.stdout.strip())
-    return {"error": f"Exit {result.returncode}: {result.stderr[:500]}"}
+# ══════════════════════════════════════════════════════════════════════════════
+# Cached data loading  (re-fetches at most once per hour)
+# ══════════════════════════════════════════════════════════════════════════════
+@st.cache_data(ttl=3600, show_spinner="📡 Fetching market data...")
+def get_monthly_df(data_start):
+    cfg  = load_config()
+    dfd, macro = fetch_data(data_start)
+    df_m = build_monthly(dfd, macro)
+    if cfg.get("train_start"):
+        df_m = df_m[df_m.index >= cfg["train_start"]]
+    return df_m
 
 
-# Get real-time metrics (latest data)
-@st.cache_data(ttl=300)  # Updates every 5 minutes
+@st.cache_data(ttl=300, show_spinner="📊 Fetching real-time metrics...")
 def get_realtime_metrics():
-    end = datetime.today()
+    end        = datetime.today()
     data_start = end - timedelta(days=90)
 
-    vix_current = float("nan")
-    vix_chg_pct = float("nan")
-    spx_latest = float("nan")
-    spx_chg_pct = float("nan")
-    spx_volume_latest = float("nan")
-    volume_chg_pct = float("nan")
-    sharpe_current = float("nan")
-    sharpe_chg = float("nan")
+    vix_current = spx_latest = spx_chg_pct = np.nan
+    vix_chg_pct = spx_volume_latest = volume_chg_pct = np.nan
 
-    # ===================== VIX =====================
     try:
-        vix = pdr.get_data_fred("VIXCLS", start=data_start, end=end)
-
+        vix       = pdr.get_data_fred("VIXCLS", start=data_start, end=end)
         vix_close = vix["VIXCLS"].dropna()
-
         if len(vix_close) >= 40:
             vix_current = float(vix_close.tail(20).mean())
-            vix_prev = float(vix_close.tail(40).head(20).mean())
-
-            if vix_prev != 0:
-                vix_chg_pct = ((vix_current - vix_prev) / vix_prev) * 100
+            vix_prev    = float(vix_close.tail(40).head(20).mean())
+            vix_chg_pct = (vix_current - vix_prev) / vix_prev * 100 if vix_prev else np.nan
     except Exception as e:
         st.warning(f"VIX error: {e}")
 
-    # ===================== SPX =====================
     try:
-        spx = pdr.get_data_stooq("^SPX", start=data_start, end=end).sort_index()
-
-        spx_close = spx["Close"].dropna()
+        spx        = pdr.get_data_stooq("^SPX", start=data_start, end=end).sort_index()
+        spx_close  = spx["Close"].dropna()
         spx_volume = spx["Volume"].dropna()
-
         if len(spx_close) >= 2:
-            spx_latest = float(spx_close.iloc[-1])
-            spx_prev = float(spx_close.iloc[-2])
-            spx_chg_pct = ((spx_latest - spx_prev) / spx_prev) * 100
-
+            spx_latest  = float(spx_close.iloc[-1])
+            spx_chg_pct = (spx_latest - float(spx_close.iloc[-2])) / float(spx_close.iloc[-2]) * 100
         if len(spx_volume) >= 6:
             spx_volume_latest = float(spx_volume.iloc[-1])
-            spx_volume_avg = float(spx_volume.tail(6).head(5).mean())
-            if spx_volume_avg != 0:
-                volume_chg_pct = ((spx_volume_latest - spx_volume_avg) / spx_volume_avg) * 100
-
+            avg               = float(spx_volume.tail(6).head(5).mean())
+            volume_chg_pct    = (spx_volume_latest - avg) / avg * 100 if avg else np.nan
     except Exception as e:
         st.warning(f"SPX error: {e}")
 
-    # ===================== Sharpe =====================
-    try:
-        bt_data = run_strategy(["--backtest", "--json"])
-        sharpe_current = float(bt_data["summary"]["EnsembleW"]["sharpe"])
-        sharpe_prev = float(bt_data["summary"]["LogReg"]["sharpe"])
-
-        if sharpe_prev != 0:
-            sharpe_chg = ((sharpe_current - sharpe_prev) / sharpe_prev) * 100
-
-    except Exception as e:
-        st.warning(f"Sharpe error: {e}")
-
-    # ===================== RETURN =====================
     return {
-        "vix_monthly_avg": round(vix_current, 2) if pd.notna(vix_current) else float("nan"),
-        "vix_chg_pct": round(vix_chg_pct, 1) if pd.notna(vix_chg_pct) else float("nan"),
-        "spx_price": round(spx_latest, 2) if pd.notna(spx_latest) else float("nan"),
-        "spx_chg_pct": round(spx_chg_pct, 2) if pd.notna(spx_chg_pct) else float("nan"),
-        "spx_volume": int(spx_volume_latest) if pd.notna(spx_volume_latest) else float("nan"),
-        "volume_chg_pct": round(volume_chg_pct, 1) if pd.notna(volume_chg_pct) else float("nan"),
-        "ensemble_sharpe": round(sharpe_current, 3) if pd.notna(sharpe_current) else float("nan"),
-        "sharpe_chg_pct": round(sharpe_chg, 1) if pd.notna(sharpe_chg) else float("nan"),
+        "vix_monthly_avg": round(vix_current, 2)       if pd.notna(vix_current)       else np.nan,
+        "vix_chg_pct":     round(vix_chg_pct, 1)       if pd.notna(vix_chg_pct)       else np.nan,
+        "spx_price":       round(spx_latest, 2)         if pd.notna(spx_latest)         else np.nan,
+        "spx_chg_pct":     round(spx_chg_pct, 2)       if pd.notna(spx_chg_pct)       else np.nan,
+        "spx_volume":      int(spx_volume_latest)       if pd.notna(spx_volume_latest) else np.nan,
+        "volume_chg_pct":  round(volume_chg_pct, 1)    if pd.notna(volume_chg_pct)    else np.nan,
     }
 
 
-# Your default config
-DEFAULT_CONFIG = {
-    "data_start": "1990-01-01",
-    "train_start": "1990-01-01", 
-    "train_end": "2020-12-31",
-    "test_start": "2021-01-01",
-    "notes": "V9.1 ElasticNet+LogReg+EnsembleW strategy"
-}
+def models_json_to_df(data: dict) -> pd.DataFrame:
+    rows = []
+    for name, info in data.get("models", {}).items():
+        rows.append({
+            "Model":    name,
+            "Logit":    info.get("logit"),
+            "P(up)":    info.get("prob_up"),
+            "Signal":   info.get("signal"),
+            "Position": info.get("position"),
+            "Short Thr":info.get("short_thr"),
+            "Month":    data.get("signal_month"),
+            "VIX Spike":data.get("vix_spike"),
+            "Mode":     data.get("mode"),
+        })
+    return pd.DataFrame(rows)
 
-st.title("🔥 SPX Mid-Month Strategy V9.1")
-st.markdown("**Live Signals + Full Backtest | Edit Config → Train New Models**")
 
-# Sidebar Configuration
+def live_signal_from_cache(df_m, mode, cfg):
+    """
+    Score current month using cached pre-trained models.
+    Returns same dict structure as run_live_signal(as_json=False).
+    """
+    cache = load_model_cache()
+    if cache is None:
+        return None
+
+    df_hist = df_m[df_m["remaining_ret"].notna()].copy()
+    df_hist["y"] = (df_hist["remaining_ret"] > 0).astype(int)
+    df_hist = df_hist[FEATURES + ["remaining_ret", "y"]].dropna()
+
+    live_candidates = df_m[FEATURES].dropna()
+    if len(live_candidates) == 0:
+        return None
+    live_row      = live_candidates.iloc[[-1]]
+    current_date  = live_row.index[0]
+    current_month = current_date.month
+
+    vix_chg1m  = float(df_m["vix_chg1m"].iloc[-1]) if pd.notna(df_m["vix_chg1m"].iloc[-1]) else 0.0
+    vix_spiked = vix_chg1m > VIX_SPIKE_THRESH
+    vix_now    = float(df_m["vix_month"].iloc[-1])
+
+    pnl_hist = load_pnl_history("EnsembleW", n=24)
+
+    logits, probs, signals, positions = {}, {}, {}, {}
+    for name, model_cfg in MODELS_CFG.items():
+        logit, prob = score_from_cache(cache, name, live_row, FEATURES)
+        sig, pos    = decide(logit, model_cfg["cutoff"], model_cfg["short_thr"],
+                             current_month, vix_spiked, 0.0,
+                             mode=mode, pnl_history=pnl_hist)
+        logits[name], probs[name], signals[name], positions[name] = (
+            round(logit, 4), round(prob, 4), sig, pos)
+
+    ens_logit = round(sum(ENSEMBLE_WEIGHTS[n] * logits[n] for n in ENSEMBLE_WEIGHTS), 4)
+    ens_sig, ens_pos = decide(ens_logit, ENSEMBLE_CUTOFF, ENSEMBLE_SHORT_THR,
+                               current_month, vix_spiked, 0.0,
+                               mode=mode, pnl_history=pnl_hist)
+    logits["EnsembleW"]    = ens_logit
+    probs["EnsembleW"]     = round(float(1/(1+np.exp(-ens_logit))), 4)
+    signals["EnsembleW"]   = ens_sig
+    positions["EnsembleW"] = ens_pos
+
+    return {
+        "generated_at":  pd.Timestamp.today().isoformat(),
+        "signal_month":  current_date.strftime("%Y-%m"),
+        "vix_month_avg": round(vix_now, 2),
+        "vix_spike":     vix_spiked,
+        "mode":          mode,
+        "cache_used":    True,
+        "models": {
+            n: {"logit": logits[n], "prob_up": probs[n],
+                "signal": signals[n], "position": positions[n],
+                "cutoff":    MODELS_CFG.get(n, {}).get("cutoff", ENSEMBLE_CUTOFF),
+                "short_thr": MODELS_CFG.get(n, {}).get("short_thr", ENSEMBLE_SHORT_THR)}
+            for n in ["LogReg", "ElasticNet", "EnsembleW"]
+        }
+    }
+
+
+# ══════════════════════════════════════════════════════════════════════════════
+# Page layout
+# ══════════════════════════════════════════════════════════════════════════════
+st.title("🔥 SPX Mid-Month Strategy V9.4")
+st.markdown("**SoftRisk Long-Short / Long-Only | Instant Cache Scoring | Walk-Forward Backtest**")
+
+# ── Sidebar ───────────────────────────────────────────────────────────────────
 with st.sidebar:
     st.header("⚙️ Configuration")
-    
-    # Show current config
+
+    # Config display & edit
     st.subheader("📋 Current Config")
     config_yaml = yaml.dump(DEFAULT_CONFIG, default_flow_style=False, sort_keys=False)
     st.code(config_yaml, language="yaml")
-    
-    st.divider()
-    
-    # Edit config
-    st.subheader("✏️ Edit Config (Save as New Default)")
-    new_config = st.text_area(
-        "Modify config.yaml:", 
-        value=config_yaml,
-        height=200,
-        help="Edit parameters → Save → Run with new model"
-    )
-    
-    if st.button("💾 Save as New Default Config", type="secondary"):
+
+    new_config = st.text_area("✏️ Edit Config:", value=config_yaml, height=200)
+    if st.button("💾 Save Config", type="secondary"):
         try:
             DEFAULT_CONFIG.update(yaml.safe_load(new_config))
-            st.success("✅ New default config saved!")
-            st.rerun()
-        except:
-            st.error("❌ Invalid YAML format")
-    
-    st.divider()
-    
-    # Run options
-    use_current_config = st.checkbox("✅ Use Current Config (Recommended)", value=True)
-    
-    if st.button("🚀 Run with Current Config", type="primary", disabled=use_current_config):
-        st.session_state.custom_running = True
-        st.rerun()
-        
-    st.caption("⚡ Config → Model → Signals (30-60s)")
+            st.success("✅ Config saved!"); st.rerun()
+        except Exception:
+            st.error("❌ Invalid YAML")
 
-# Main content area
+    st.divider()
+
+    # ── Strategy mode selector ────────────────────────────────────────────────
+    st.subheader("🎯 Strategy Mode")
+    mode = st.selectbox(
+        "Mode",
+        options=list(MODE_LABELS.keys()),
+        format_func=lambda x: MODE_LABELS[x],
+        index=0,
+        help=(
+            "soft_risk_lo: continuous [0,+1], no shorting\n"
+            "soft_risk_ls: continuous [-1,+1], allows short\n"
+            "binary: original V9.1 {0,1} positions"
+        )
+    )
+
+    st.divider()
+
+    # ── Model Cache Management ────────────────────────────────────────────────
+    st.subheader("🤖 Model Cache")
+    cache = load_model_cache()
+
+    if cache:
+        st.success(f"✅ Cache ready\n`{cache_info(cache)}`")
+    else:
+        st.warning("⚠️ No cache — train models first for instant scoring")
+
+    col_a, col_b = st.columns(2)
+    with col_a:
+        do_train_cache = st.button(
+            "🏋️ Train & Cache" if not cache else "🔄 Retrain Cache",
+            type="primary", use_container_width=True,
+            help="Train on full history and save model_cache.pkl"
+        )
+    with col_b:
+        if cache and st.button("🗑️ Clear Cache", use_container_width=True):
+            if os.path.exists(_CACHE_PATH):
+                os.remove(_CACHE_PATH)
+            st.warning("Cache cleared"); st.rerun()
+
+    if do_train_cache:
+        with st.spinner("Training models on full history... (30-60s)"):
+            try:
+                cfg  = load_config()
+                df_m = get_monthly_df(cfg["data_start"])
+                df_hist = df_m[df_m["remaining_ret"].notna()].copy()
+                df_hist["y"] = (df_hist["remaining_ret"] > 0).astype(int)
+                df_hist = df_hist[FEATURES + ["remaining_ret","y"]].dropna()
+                train_and_cache_models(df_hist, FEATURES)
+                st.success(f"✅ Models cached! N={len(df_hist)} months"); st.rerun()
+            except Exception as e:
+                st.error(f"❌ {e}")
+
+    st.divider()
+    st.caption(
+        f"📌 SoftRisk defaults:\n"
+        f"  scale={SOFTRISK_CFG['base_scale']}, "
+        f"floor={SOFTRISK_CFG['floor']}\n"
+        f"  λ_dd={SOFTRISK_CFG['lambda_dd']}, "
+        f"λ_tail={SOFTRISK_CFG['lambda_tail']}\n"
+        f"  shrink={SOFTRISK_CFG['shrink_mode']}"
+    )
+
+
+# ── Main columns ──────────────────────────────────────────────────────────────
 col1, col2 = st.columns([1, 1])
 
 with col1:
     st.header("📈 Current Month Signal")
-    
-    if use_current_config:
-        st.info(f"✅ Using config: {DEFAULT_CONFIG['notes']}")
-        if st.button("🔄 Compute Live Signal", type="secondary"):
-            with st.spinner("Computing live signal with current config..."):
-                live_data = run_strategy(["--json"])
-                if "error" not in live_data:
-                    st.success("✅ Signal computed!")
-                    df_models = models_json_to_df(live_data)
-    
-                    st.dataframe(df_models)
-                    st.caption(f"💾 Generated: {live_data.get('generated_at', 'Now')}")
+    st.info(f"Mode: **{MODE_LABELS[mode]}**  |  "
+            f"Cache: {'✅ ready' if cache else '⚠️ not built'}")
+
+    use_cache_toggle = st.checkbox(
+        "⚡ Use cached models (instant)", value=(cache is not None),
+        disabled=(cache is None),
+        help="Uncheck to retrain from scratch — takes ~30s"
+    )
+
+    if st.button("🔄 Compute Live Signal", type="primary"):
+        with st.spinner("Scoring..."):
+            try:
+                cfg  = load_config()
+                df_m = get_monthly_df(cfg["data_start"])
+
+                if use_cache_toggle and cache:
+                    live_data = live_signal_from_cache(df_m, mode, cfg)
+                    latency   = "instant (cached)"
                 else:
-                    st.error(f"❌ Error: {live_data['error']}")
-    else:
-        st.warning("👆 Select config and click 'Run with Current Config'")
+                    import io, contextlib
+                    buf = io.StringIO()
+                    logits, signals, positions = run_live_signal(
+                        df_m, cfg, mode=mode, use_cache=False, as_json=False)
+                    live_data = None   # already printed
+                    latency   = "retrained"
 
-with col2:
-    st.header("📊 Backtest Results")
-    
-    if use_current_config:
-        st.info(f"✅ Backtest period: {DEFAULT_CONFIG['test_start']} → Latest")
-        if st.button("📊 Run Full Backtest", type="secondary"):
-            with st.spinner("Running full backtest... (60s)"):
-                bt_data = run_strategy(["--backtest", "--json"])
-                if "error" not in bt_data:
-                    st.success("✅ Backtest completed!")
-                    if "summary" in bt_data:
-                        df_summary = pd.DataFrame(bt_data["summary"]).T.reset_index()
-                        df_summary = df_summary.rename(columns={"index": "Model"})
-                        st.dataframe(df_summary, use_container_width=True, hide_index=False)
-                else:
-                    st.error(f"❌ Error: {bt_data['error']}")
-    else:
-        st.warning("👆 Select config and click 'Run with Current Config'")
+                if live_data:
+                    st.success(f"✅ Signal ready ({latency})")
+                    df_sig = models_json_to_df(live_data)
 
-
-# Footer metrics (ALL DYNAMIC)
-st.markdown("---")
-
-if "metrics_data" not in st.session_state:
-    st.session_state.metrics_data = get_realtime_metrics()
-    st.session_state.metrics_timestamp = get_edt_time()
-
-col1, col2, col3, col4 = st.columns(4)
-col_btn, col_time = st.columns([1, 5])
-
-with col_btn:
-    if st.button("🔄 Refresh Metrics", use_container_width=True):
-        st.session_state.metrics_data = get_realtime_metrics()
-        st.session_state.metrics_timestamp = get_edt_time()
-        st.rerun()
-
-with col_time:
-    st.caption(f"🕐 Data snapshot time: {st.session_state.metrics_timestamp}")
-
-metrics = st.session_state.metrics_data
-
-# Dynamic deltas
-delta_vix = f"{metrics['vix_chg_pct']:+.1f}%" if pd.notna(metrics["vix_chg_pct"]) else "-"
-delta_spx = f"{metrics['spx_chg_pct']:+.2f}%" if pd.notna(metrics["spx_chg_pct"]) else "-"
-delta_volume = f"{metrics['volume_chg_pct']:+.1f}%" if pd.notna(metrics["volume_chg_pct"]) else "-"
-delta_sharpe = f"{metrics['sharpe_chg_pct']:+.1f}%" if pd.notna(metrics["sharpe_chg_pct"]) else "-"
-
-vix_value = f"{metrics['vix_monthly_avg']}" if pd.notna(metrics["vix_monthly_avg"]) else "-"
-spx_value = f"${metrics['spx_price']:,}" if pd.notna(metrics["spx_price"]) else "-"
-sharpe_value = f"{metrics['ensemble_sharpe']}" if pd.notna(metrics["ensemble_sharpe"]) else "-"
-volume_value = f"{int(metrics['spx_volume']):,}" if pd.notna(metrics["spx_volume"]) else "-"
-
-col1.metric("VIX Monthly Avg", vix_value, delta_vix)
-col2.metric("SPX Price", spx_value, delta_spx)
-col3.metric("EnsembleW Sharpe", sharpe_value, delta_sharpe)
-col4.metric("SPX Volume", volume_value, delta_volume)
-
-st.caption(
-    f"🕐 LIVE EDT: {get_edt_time()} | "
-    f"Snapshot VIX: {vix_value} | SPX: {spx_value}"
-)
+                    # Colour position column
+                    def color_pos(val):
+                        if isinstance(val, float):
+                            if val > 0.05:  return "color

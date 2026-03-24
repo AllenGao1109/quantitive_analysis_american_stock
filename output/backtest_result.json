@@ -1,6 +1,6 @@
 {
   "test_start": "2021-01-01",
-  "generated_at": "2026-03-22T22:26:09.713108",
+  "generated_at": "2026-03-23T09:55:09.335972",
   "summary": {
     "LogReg": {
       "sharpe": 1.968,
@@ -688,7 +688,7 @@
         "alpha_pnl": 2.8007,
         "pos_start": 1.0,
         "pos_end": 0.0,
-        "logit": -3.1213,
+        "logit": -3.1228,
         "signal": "VIX-EXIT"
       }
     ],
@@ -1952,7 +1952,7 @@
         "alpha_pnl": 2.8007,
         "pos_start": 1.0,
         "pos_end": 0.0,
-        "logit": -3.9761,
+        "logit": -3.9768,
         "signal": "VIX-EXIT"
       }
     ]

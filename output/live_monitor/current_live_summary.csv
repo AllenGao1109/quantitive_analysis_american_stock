@@ -1,0 +1,5 @@
+signal,logit,prob_up,cutoff,short_thr,prev_pos,binary_action,binary_target_pos
+LogReg_v92,-0.2976868668891832,0.4261,0.3,0.1,1.0,Sell,0.0
+ElasticNet_v92,-3.9026083407246386,0.0198,1.9,0.7,1.0,Sell,0.0
+MLP_v92,-1.7850416758642045,0.1437,0.6000000000000001,0.4,1.0,Sell,0.0
+Ensemble_v92,-1.9951122944926754,0.1197,1.2000000000000002,0.8,1.0,Sell,0.0

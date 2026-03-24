@@ -1,0 +1,5 @@
+label,sharpe_ann,nav,alpha_cum,max_dd,calmar,win_rate,in_market,avg_pos
+V9.1 Full,1.844,4.2,27.4,-4.46,3.404,64.8,50.8,0.508
+No Seasonal,1.844,4.2,27.4,-4.46,3.404,64.8,50.8,0.508
+No VIX exit,1.667,4.99,46.3,-8.11,2.11,66.4,53.3,0.533
+No Seasonal+VIX,1.667,4.99,46.3,-8.11,2.11,66.4,53.3,0.533

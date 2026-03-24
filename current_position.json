@@ -1,5 +1,6 @@
 {
-  "generated_at": "2026-03-22T22:26:41.065981",
+  "generated_at": "2026-03-23T23:02:17.826437",
+  "mode": "soft_risk_lo",
   "positions": {
     "LogReg": 0.0,
     "ElasticNet": 0.0,
@@ -11,8 +12,8 @@
     "EnsembleW": "VIX-EXIT"
   },
   "logits": {
-    "LogReg": -3.0998,
-    "ElasticNet": -4.5951,
-    "EnsembleW": -3.9671
+    "LogReg": -2.3082,
+    "ElasticNet": -4.2374,
+    "EnsembleW": -3.4271
   }
 }
