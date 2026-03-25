@@ -618,24 +618,6 @@ with col_cross:
 st.divider()
 
 
-st.subheader("📊 Monthly PnL Heatmap")
-
-selected_model = st.selectbox(
-    "Select model for heatmap",
-    backtest_df["model_variant"].unique()
-)
-
-pnl_series = backtest_df[
-    backtest_df["model_variant"] == selected_model
-]["strategy_pnl"]
-
-heatmap_df = build_pnl_heatmap_df(pnl_series)
-st.pyplot(plot_pnl_heatmap(heatmap_df, title=f"{selected_model} Monthly PnL"))
-
-st.divider()
-
-
-
 df_combined_sum = (
     backtest_df[backtest_df["segment"].astype(str).str.contains("COMBINED", na=False)]
     .groupby("model_variant", as_index=False)["strategy_pnl"]
