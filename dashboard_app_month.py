@@ -582,6 +582,59 @@ st.divider()
 # ------------------------------------------------------------
 # ROW 4 — DRAWDOWN + CROSS RESULTS
 # ------------------------------------------------------------
+col_dd, col_cross = st.columns([3, 2], gap="medium")
+
+with col_dd:
+    st.subheader("📉 Drawdown Curves")
+    fig_dd = go.Figure()
+    bh_added = False
+    for i, mv in enumerate(sorted(filt_backtest["model_variant"].unique())):
+        sub = filt_backtest[filt_backtest["model_variant"] == mv].sort_index()
+        if len(sub) < 2:
+            continue
+        if not bh_added:
+            bh_nav = (1 + sub["bh_pnl"] / 100).cumprod()
+            bh_dd = (bh_nav / bh_nav.cummax() - 1) * 100
+            fig_dd.add_trace(go.Scatter(x=sub.index, y=bh_dd, name="Benchmark DD", line=dict(color="#8b949e", width=2, dash="dot")))
+            bh_added = True
+        nav = (1 + sub["strategy_pnl"] / 100).cumprod()
+        dd = (nav / nav.cummax() - 1) * 100
+        fig_dd.add_trace(go.Scatter(x=sub.index, y=dd, name=mv, line=dict(color=COLOR_POOL[i % len(COLOR_POOL)], width=1.5)))
+
+    fig_dd.update_layout(
+        template="plotly_dark",
+        paper_bgcolor="#0e1117", plot_bgcolor="#161b22",
+        xaxis_title="Month", yaxis_title="Drawdown %",
+        height=380, margin=dict(l=50, r=20, t=20, b=50), hovermode="x unified",
+        xaxis=dict(showgrid=True, gridcolor="#21262d"), yaxis=dict(showgrid=True, gridcolor="#21262d"),
+    )
+    st.plotly_chart(fig_dd, use_container_width=True)
+
+with col_cross:
+    st.subheader("🔀 Top4 × Top4 Cross")
+    cross_view = df_cross.drop(columns=["combined_name"], errors="ignore").copy()
+    st.dataframe(cross_view, use_container_width=True, height=380)
+
+st.divider()
+
+
+st.subheader("📊 Monthly PnL Heatmap")
+
+selected_model = st.selectbox(
+    "Select model for heatmap",
+    backtest_df["model_variant"].unique()
+)
+
+pnl_series = backtest_df[
+    backtest_df["model_variant"] == selected_model
+]["strategy_pnl"]
+
+heatmap_df = build_pnl_heatmap_df(pnl_series)
+st.pyplot(plot_pnl_heatmap(heatmap_df, title=f"{selected_model} Monthly PnL"))
+
+st.divider()
+
+
 
 df_combined_sum = (
     backtest_df[backtest_df["segment"].astype(str).str.contains("COMBINED", na=False)]
